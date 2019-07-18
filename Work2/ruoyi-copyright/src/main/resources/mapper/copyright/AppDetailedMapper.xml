@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppDetailedMapper">
+    
+    <resultMap type="AppDetailed" id="AppDetailedResult">
+        <result property="detailedId"    column="detailed_id"    />
+        <result property="indentId"    column="indent_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="product"    column="product"    />
+        <result property="amount"    column="amount"    />
+        <result property="deliveryTime"    column="delivery_time"    />
+        <result property="trackingNumber"    column="tracking_number"    />
+    </resultMap>
+	
+	<sql id="selectAppDetailedVo">
+        select detailed_id, indent_id, product_id, product, amount, delivery_time, tracking_number from app_detailed
+    </sql>
+	
+    <select id="selectAppDetailedList" parameterType="AppDetailed" resultMap="AppDetailedResult">
+        <include refid="selectAppDetailedVo"/>
+        <where>  
+            <if test="detailedId != null "> and detailed_id = #{detailedId}</if>
+             <if test="indentId != null "> and indent_id = #{indentId}</if>
+             <if test="productId != null "> and product_id = #{productId}</if>
+             <if test="product != null and product != '' "> and product = #{product}</if>
+             <if test="amount != null "> and amount = #{amount}</if>
+             <if test="deliveryTime != null "> and delivery_time = #{deliveryTime}</if>
+             <if test="trackingNumber != null and trackingNumber != '' "> and tracking_number = #{trackingNumber}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppDetailedById" parameterType="Integer" resultMap="AppDetailedResult">
+        <include refid="selectAppDetailedVo"/>
+        where detailed_id = #{detailedId}
+    </select>
+        
+    <insert id="insertAppDetailed" parameterType="AppDetailed" useGeneratedKeys="true" keyProperty="detailedId">
+        insert into app_detailed
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="indentId != null  ">indent_id,</if>
+			<if test="productId != null  ">product_id,</if>
+			<if test="product != null and product != '' ">product,</if>
+			<if test="amount != null  ">amount,</if>
+			<if test="deliveryTime != null  ">delivery_time,</if>
+			<if test="trackingNumber != null and trackingNumber != '' ">tracking_number,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="indentId != null  ">#{indentId},</if>
+			<if test="productId != null  ">#{productId},</if>
+			<if test="product != null and product != ''">#{product},</if>
+			<if test="amount != null  ">#{amount},</if>
+			<if test="deliveryTime != null  ">#{deliveryTime},</if>
+			<if test="trackingNumber != null and trackingNumber != ''">#{trackingNumber},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppDetailed" parameterType="AppDetailed">
+        update app_detailed
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="indentId != null  ">indent_id = #{indentId},</if>
+            <if test="productId != null  ">product_id = #{productId},</if>
+            <if test="product != null and product != '' ">product = #{product},</if>
+            <if test="amount != null  ">amount = #{amount},</if>
+            <if test="deliveryTime != null  ">amount = #{amount},</if>
+            <if test="trackingNumber != null and trackingNumber != ''">tracking_number = #{trackingNumber},</if>
+        </trim>
+        where detailed_id = #{detailedId}
+    </update>
+
+	<delete id="deleteAppDetailedById" parameterType="Integer">
+        delete from app_detailed where detailed_id = #{detailedId}
+    </delete>
+	
+    <delete id="deleteAppDetailedByIds" parameterType="String">
+        delete from app_detailed where detailed_id in 
+        <foreach item="detailedId" collection="array" open="(" separator="," close=")">
+            #{detailedId}
+        </foreach>
+    </delete>
+    
+</mapper>

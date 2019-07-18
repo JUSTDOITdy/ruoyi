@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改订单')" />
+	<th:block th:include="include :: select2-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appIndent-edit" th:object="${appIndent}">
+            <input id="indentId" name="indentId" th:field="*{indentId}"  type="hidden">
+			<!-- <div class="form-group">	
+				<label class="col-sm-3 control-label">关联产品表：</label>
+				<div class="col-sm-8">
+					<input id="product" name="product" th:field="*{product}" class="form-control" type="text">
+				</div>
+			</div> -->
+			 <div class="form-group">	
+				<label class="col-sm-3 control-label">选择产品：</label>
+				<div class="col-sm-8">
+                    <select name="product" class="form-control m-b"  >
+                       <option th:each="product :${pro}"
+                         th:value="${product.type}" th:text="${product.type}"  >
+                       </option>
+                    </select>
+				</div>
+			</div>
+			
+			
+			<!-- <div class="form-group">	
+				<label class="col-sm-3 control-label">订单类型：</label>
+				<div class="col-sm-8">
+					<input id="indentId" name="indentId" th:field="*{indentId}" class="form-control" type="text">
+				</div>
+			</div> -->
+			
+			<!-- <div class="form-group">
+			<label class="col-sm-3 control-label">订单类型：</label>
+				<div class="col-sm-8">
+					<select name="indentType" class="form-control m-b" 
+					th:with="type=${@dict.getType('app_indent_type')}">
+	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" 
+	                    th:value="${dict.dictValue}" 
+	                    th:selected="${dict.dictValue==indentType}"></option>
+	                </select>
+				</div>
+			</div> -->
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">订单类型：</label>
+				<div class="col-sm-8">
+					<select name="indentType" class="form-control m-b" th:with="type=${@dict.getType('app_indent_type')}">
+	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+	                </select>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单编号：</label>
+				<div class="col-sm-8">
+					<input id="code" name="code" th:field="*{code}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">关联客户表：</label>
+				<div class="col-sm-8">
+					<input id="clientId" name="clientId" th:field="*{clientId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订购日期：</label>
+				<div class="col-sm-8">
+					<input id="purchaseDate" name="purchaseDate" th:field="*{purchaseDate}" class="time-input" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单金额：</label>
+				<div class="col-sm-8">
+					<input id="orderAmount" name="orderAmount" th:field="*{orderAmount}" class="form-control" type="number">
+				</div>
+			</div>
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">折扣：</label>
+				<div class="col-sm-8">
+					<input id="discount" name="discount" th:field="*{discount}"class="form-control" type="text">
+				</div>
+			</div>
+			<!-- <div class="form-group">	
+				<label class="col-sm-3 control-label">材料：</label>
+				<div class="col-sm-8">
+					<input id="materials" name="materials" th:field="*{materials}" class="form-control" type="text">
+				</div>
+			</div> -->
+			
+				<div class="form-group">	<!-- 单选框 -->
+				<label class="col-sm-3 control-label">有无材料：</label>
+				<div class="col-sm-8">
+					<!-- <input id="materials" name="materials" class="form-control" type="text"> -->
+					
+					<label class="radio-box">
+					 <input type="radio" 
+						value="1" id="optionsRadios1" name="materials"> <ins
+							class="iCheck-helper"
+							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						有材料
+					</label> 
+					<label class="radio-box"> 
+					<input type="radio" checked=""
+						value="0" id="optionsRadios2" name="materials"> <ins
+							class="iCheck-helper"
+							style="position: absolute; display: block; width: 100%; height: 100%;  background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						无材料
+					</label>
+				</div>
+			</div>
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发票：</label>
+				<div class="col-sm-9">
+				    <label class="radio-box">
+					 <input type="radio" 
+						value="2" id="optionsRadios3" name="invoice"> <ins
+							class="iCheck-helper"
+							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						专票
+					</label> 
+					<label class="radio-box">
+					 <input type="radio" 
+						value="1" id="optionsRadios1" name="invoice"> <ins
+							class="iCheck-helper"
+							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						普票
+					</label> 
+					<label class="radio-box"> 
+					<input type="radio" checked=""
+						value="0" id="optionsRadios2" name="invoice"> <ins
+							class="iCheck-helper"
+							style="position: absolute; display: block; width: 100%; height: 100%;  background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						无需
+					</label>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+			<!-- <div class="form-group">	
+				<label class="col-sm-3 control-label">订单状态：</label>
+				<div class="col-sm-8">
+					<input id="orderStatus" name="orderStatus" th:field="*{orderStatus}" class="form-control" type="text">
+				</div>
+			</div>
+			 -->
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单状态：</label>
+				<div class="col-sm-8">
+            		<select id="orderStatus" name="orderStatus"  class="form-control m-b" th:with="type=${@dict.getType('app_indent_status')}">
+                      <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+                  </select>
+       			 </div> 
+				
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发货时间：</label>
+				<div class="col-sm-8">
+					<input id="deliveryTime" name="deliveryTime" th:field="*{deliveryTime}" class="time-input" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">快递单号：</label>
+				<div class="col-sm-8">
+					<input id="trackingNumber" name="trackingNumber" th:field="*{trackingNumber}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">服务情况：</label>
+				<div class="col-sm-8">
+					<input id="serviceCondition" name="serviceCondition" th:field="*{serviceCondition}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建人：</label>
+				<div class="col-sm-8">
+					<input id="creator" name="creator" th:field="*{creator}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建时间：</label>
+				<div class="col-sm-8">
+					<input id="creationTime" name="creationTime" th:field="*{creationTime}" class="time-input" type="text">
+				</div>
+			</div>
+			
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "copyright/appIndent";
+		$("#form-appIndent-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-appIndent-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

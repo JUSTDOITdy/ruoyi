@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppClientMapper">
+    
+    <resultMap type="AppClient" id="AppClientResult">
+        <result property="clientId"    column="client_id"    />
+        <result property="type"    column="type"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="name"    column="name"    />
+        <result property="region"    column="region"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="site"    column="site"    />
+        <result property="clientKind"    column="client_kind"    />
+        <result property="phone"    column="phone"    />
+        <result property="wordPhone"    column="word_phone"    />
+        <result property="remark"    column="remark"    />
+        <result property="code"    column="code"    />
+    </resultMap>
+	
+	<sql id="selectAppClientVo">
+        select client_id, type, company_name, name, region, province, city, site, client_kind, phone, word_phone, remark, code from app_client
+    </sql>
+	
+    <select id="selectAppClientList" parameterType="AppClient" resultMap="AppClientResult">
+        <include refid="selectAppClientVo"/>
+        <where>  
+            <if test="clientId != null "> and client_id = #{clientId}</if>
+             <if test="type != null  and type != '' "> and type = #{type}</if>
+             <if test="companyName != null  and companyName != '' "> and company_name = #{companyName}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="region != null  and region != '' "> and region = #{region}</if>
+             <if test="province != null  and province != '' "> and province = #{province}</if>
+             <if test="city != null  and city != '' "> and city = #{city}</if>
+             <if test="site != null  and site != '' "> and site = #{site}</if>
+             <if test="clientKind != null  and clientKind != '' "> and client_kind = #{clientKind}</if>
+             <if test="phone != null  and phone != '' "> and phone = #{phone}</if>
+             <if test="wordPhone != null  and wordPhone != '' "> and word_phone = #{wordPhone}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="code != null  and code != '' "> and code = #{code}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppClientById" parameterType="Integer" resultMap="AppClientResult">
+        <include refid="selectAppClientVo"/>
+        where client_id = #{clientId}
+    </select>
+    <select id="selectAppClientByCode" parameterType="String" resultMap="AppClientResult">
+        <include refid="selectAppClientVo"/>
+        where code = #{code}
+    </select>
+        
+    <insert id="insertAppClient" parameterType="AppClient" useGeneratedKeys="true" keyProperty="clientId">
+        insert into app_client
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="type != null  and type != ''  ">type,</if>
+			<if test="companyName != null  and companyName != ''  ">company_name,</if>
+			<if test="name != null  and name != ''  ">name,</if>
+			<if test="region != null  and region != ''  ">region,</if>
+			<if test="province != null  and province != ''  ">province,</if>
+			<if test="city != null  and city != ''  ">city,</if>
+			<if test="site != null  and site != ''  ">site,</if>
+			<if test="clientKind != null  and clientKind != ''  ">client_kind,</if>
+			<if test="phone != null  and phone != ''  ">phone,</if>
+			<if test="wordPhone != null  and wordPhone != ''  ">word_phone,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="code != null  and code != ''  ">code,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="type != null  and type != ''  ">#{type},</if>
+			<if test="companyName != null  and companyName != ''  ">#{companyName},</if>
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="region != null  and region != ''  ">#{region},</if>
+			<if test="province != null  and province != ''  ">#{province},</if>
+			<if test="city != null  and city != ''  ">#{city},</if>
+			<if test="site != null  and site != ''  ">#{site},</if>
+			<if test="clientKind != null  and clientKind != ''  ">#{clientKind},</if>
+			<if test="phone != null  and phone != ''  ">#{phone},</if>
+			<if test="wordPhone != null  and wordPhone != ''  ">#{wordPhone},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="code != null  and code != ''  ">#{code},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppClient" parameterType="AppClient">
+        update app_client
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null  and type != ''  ">type = #{type},</if>
+            <if test="companyName != null  and companyName != ''  ">company_name = #{companyName},</if>
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="region != null  and region != ''  ">region = #{region},</if>
+            <if test="province != null  and province != ''  ">province = #{province},</if>
+            <if test="city != null  and city != ''  ">city = #{city},</if>
+            <if test="site != null  and site != ''  ">site = #{site},</if>
+            <if test="clientKind != null  and clientKind != ''  ">client_kind = #{clientKind},</if>
+            <if test="phone != null  and phone != ''  ">phone = #{phone},</if>
+            <if test="wordPhone != null  and wordPhone != ''  ">word_phone = #{wordPhone},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="code != null  and code != ''  ">code = #{code},</if>
+        </trim>
+        where client_id = #{clientId}
+    </update>
+
+	<delete id="deleteAppClientById" parameterType="Integer">
+        delete from app_client where client_id = #{clientId}
+    </delete>
+	
+    <delete id="deleteAppClientByIds" parameterType="String">
+        delete from app_client where client_id in 
+        <foreach item="clientId" collection="array" open="(" separator="," close=")">
+            #{clientId}
+        </foreach>
+    </delete>
+    
+</mapper>

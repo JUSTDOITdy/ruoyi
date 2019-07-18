@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppProductMapper">
+    
+    <resultMap type="AppProduct" id="AppProductResult">
+        <result property="productId"    column="product_id"    />
+        <result property="type"    column="type"    />
+        <result property="workdays"    column="workdays"    />
+        <result property="salesPrice"    column="sales_price"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="discount"    column="discount"    />
+        <result property="supplierCompany"    column="supplier_company"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierPhone"    column="supplier_phone"    />
+        <result property="supplierQq"    column="supplier_qq"    />
+        <result property="award"    column="award"    />
+        <result property="invoice"    column="invoice"    />
+        <result property="remark"    column="remark"    />
+        <result property="valid"    column="valid"    />
+        <result property="rank"    column="rank"    />
+    </resultMap>
+	
+	<sql id="selectAppProductVo">
+        select product_id, type, workdays, sales_price, purchase_price, discount, supplier_company, supplier_name, supplier_phone, supplier_qq, award, invoice, remark, valid, rank from app_product
+    </sql>
+	
+    <select id="selectAppProductList" parameterType="AppProduct" resultMap="AppProductResult">
+        <include refid="selectAppProductVo"/>
+        <where>  
+            <if test="productId != null "> and product_id = #{productId}</if>
+             <if test="type != null  and type != '' "> and type = #{type}</if>
+             <if test="workdays != null  and workdays != '' "> and workdays = #{workdays}</if>
+             <if test="salesPrice != null  and salesPrice != '' "> and sales_price = #{salesPrice}</if>
+             <if test="purchasePrice != null  and purchasePrice != '' "> and purchase_price = #{purchasePrice}</if>
+             <if test="discount != null  and discount != '' "> and discount = #{discount}</if>
+             <if test="supplierCompany != null  and supplierCompany != '' "> and supplier_company = #{supplierCompany}</if>
+             <if test="supplierName != null  and supplierName != '' "> and supplier_name = #{supplierName}</if>
+             <if test="supplierPhone != null  and supplierPhone != '' "> and supplier_phone = #{supplierPhone}</if>
+             <if test="supplierQq != null  and supplierQq != '' "> and supplier_qq = #{supplierQq}</if>
+             <if test="award != null  and award != '' "> and award = #{award}</if>
+             <if test="invoice != null  and invoice != '' "> and invoice = #{invoice}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="valid != null  and valid != '' "> and valid = #{valid}</if>
+             <if test="rank != null  and rank != '' "> and rank = #{rank}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppProductById" parameterType="Integer" resultMap="AppProductResult">
+        <include refid="selectAppProductVo"/>
+        where product_id = #{productId}
+    </select>
+        
+    <insert id="insertAppProduct" parameterType="AppProduct" useGeneratedKeys="true" keyProperty="productId">
+        insert into app_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="type != null  and type != ''  ">type,</if>
+			<if test="workdays != null  and workdays != ''  ">workdays,</if>
+			<if test="salesPrice != null  and salesPrice != ''  ">sales_price,</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price,</if>
+			<if test="discount != null  and discount != ''  ">discount,</if>
+			<if test="supplierCompany != null  and supplierCompany != ''  ">supplier_company,</if>
+			<if test="supplierName != null  and supplierName != ''  ">supplier_name,</if>
+			<if test="supplierPhone != null  and supplierPhone != ''  ">supplier_phone,</if>
+			<if test="supplierQq != null  and supplierQq != ''  ">supplier_qq,</if>
+			<if test="award != null  and award != ''  ">award,</if>
+			<if test="invoice != null  and invoice != ''  ">invoice,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="valid != null  and valid != ''  ">valid,</if>
+			<if test="rank != null  and rank != ''  ">rank,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="type != null  and type != ''  ">#{type},</if>
+			<if test="workdays != null  and workdays != ''  ">#{workdays},</if>
+			<if test="salesPrice != null  and salesPrice != ''  ">#{salesPrice},</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">#{purchasePrice},</if>
+			<if test="discount != null  and discount != ''  ">#{discount},</if>
+			<if test="supplierCompany != null  and supplierCompany != ''  ">#{supplierCompany},</if>
+			<if test="supplierName != null  and supplierName != ''  ">#{supplierName},</if>
+			<if test="supplierPhone != null  and supplierPhone != ''  ">#{supplierPhone},</if>
+			<if test="supplierQq != null  and supplierQq != ''  ">#{supplierQq},</if>
+			<if test="award != null  and award != ''  ">#{award},</if>
+			<if test="invoice != null  and invoice != ''  ">#{invoice},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="valid != null  and valid != ''  ">#{valid},</if>
+			<if test="rank != null  and rank != ''  ">#{rank},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppProduct" parameterType="AppProduct">
+        update app_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null  and type != ''  ">type = #{type},</if>
+            <if test="workdays != null  and workdays != ''  ">workdays = #{workdays},</if>
+            <if test="salesPrice != null  and salesPrice != ''  ">sales_price = #{salesPrice},</if>
+            <if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price = #{purchasePrice},</if>
+            <if test="discount != null  and discount != ''  ">discount = #{discount},</if>
+            <if test="supplierCompany != null  and supplierCompany != ''  ">supplier_company = #{supplierCompany},</if>
+            <if test="supplierName != null  and supplierName != ''  ">supplier_name = #{supplierName},</if>
+            <if test="supplierPhone != null  and supplierPhone != ''  ">supplier_phone = #{supplierPhone},</if>
+            <if test="supplierQq != null  and supplierQq != ''  ">supplier_qq = #{supplierQq},</if>
+            <if test="award != null  and award != ''  ">award = #{award},</if>
+            <if test="invoice != null  and invoice != ''  ">invoice = #{invoice},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="valid != null  and valid != ''  ">valid = #{valid},</if>
+            <if test="rank != null  and rank != ''  ">rank = #{rank},</if>
+        </trim>
+        where product_id = #{productId}
+    </update>
+
+	<delete id="deleteAppProductById" parameterType="Integer">
+        delete from app_product where product_id = #{productId}
+    </delete>
+	
+    <delete id="deleteAppProductByIds" parameterType="String">
+        delete from app_product where product_id in 
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+    
+</mapper>

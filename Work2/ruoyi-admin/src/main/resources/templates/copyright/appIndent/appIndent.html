@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('订单列表')" />
+	<th:block th:include="include :: select2-css" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+					 	    <li>
+								关联产品表：<input type="text" name="productId"/>
+							</li> 
+							
+							<li>
+								订单类型：<input type="text" name="indentType"/>
+							</li>
+							
+							<li>
+								订单编号：<input type="text" name="code"/>
+							</li>
+
+							<li>
+								关联客户表：<input type="text" name="clientId"/>
+							</li>
+
+							<li>
+								订购日期：<input type="text" name="purchaseDate"/>
+							</li>
+
+							<li>
+								订单金额：<input type="text" name="orderAmount"/>
+							</li>
+							
+							<li>
+								折扣：<input type="text" name="discount"/>
+							</li>
+
+							<li>
+								材料：<input type="text" name="materials"/>
+							</li>
+							
+							<li>
+								发票：<input type="text" name="invoice"/>
+							</li>
+
+							<li>
+								备注：<input type="text" name="remark"/>
+							</li>
+
+							<li>
+								订单状态：<input type="text" name="orderStatus"/>
+							</li>
+
+							<li>
+								发货时间：<input type="text" name="deliveryTime"/>
+							</li>
+
+							<li>
+								快递单号：<input type="text" name="trackingNumber"/>
+							</li>
+
+							<li>
+								服务情况：<input type="text" name="serviceCondition"/>
+							</li>
+
+							<li>
+								创建人：<input type="text" name="creator"/>
+							</li>
+
+							<li>
+								创建时间：<input type="text" name="creationTime"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" 
+				shiro:hasPermission="copyright:appIndent:add">
+					<i class="fa fa-plus">添加</i> 
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" 
+				shiro:hasPermission="copyright:appIndent:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" 
+				shiro:hasPermission="copyright:appIndent:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" 
+				shiro:hasPermission="copyright:appIndent:export">
+						<i class="fa fa-download"></i> 导出（excel）
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('copyright:appIndent:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('copyright:appIndent:remove')}]];
+        var prefix = ctx + "copyright/appIndent";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "订单",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'indentId', 
+					title : '订单表id',
+					visible: false
+				},
+				{
+					field : 'indentType', 
+					title : '订单类型',
+					sortable: true
+				},
+				{
+					field : 'product', 
+					title : '产品',
+					sortable: true
+				},
+			
+				{
+					field : 'code', 
+					title : '订单编号',
+					sortable: true
+				},
+				{
+					field : 'clientId', 
+					title : '关联客户表',
+					sortable: true
+				},
+				{
+					field : 'purchaseDate', 
+					title : '订购日期',
+					sortable: true
+				},
+				{
+					field : 'orderAmount', 
+					title : '订单金额',
+					sortable: true
+				},
+				{
+					field : 'discount', 
+					title : '折扣',
+					sortable: true
+				},
+				{
+					field : 'materials', 
+					title : '材料',
+					sortable: true
+				},
+				{
+					field : 'invoice', 
+					title : '发票',
+					sortable: true
+				},
+				{
+					field : 'remark', 
+					title : '备注',
+					sortable: true
+				},
+				{
+					field : 'orderStatus', 
+					title : '订单状态',
+					sortable: true
+				},
+				{
+					field : 'deliveryTime', 
+					title : '发货时间',
+					sortable: true
+				},
+				{
+					field : 'trackingNumber', 
+					title : '快递单号',
+					sortable: true
+				},
+				{
+					field : 'serviceCondition', 
+					title : '服务情况',
+					sortable: true
+				},
+				{
+					field : 'creator', 
+					title : '创建人',
+					sortable: true
+				},
+				{
+					field : 'creationTime', 
+					title : '创建时间',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.indentId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.indentId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            //$.table.init(options);
+        });
+    </script>
+</body>
+</html>

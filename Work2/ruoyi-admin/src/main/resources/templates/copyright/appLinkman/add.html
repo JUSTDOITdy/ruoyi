@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增联系人')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appLinkman-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">客户编号：</label>
+				<div class="col-sm-8">
+					<input id="clientCode" class="form-control" onchange="compare()">
+				</div>
+			</div>
+			<input id="clientId" name="clientId" class="form-control" type="hidden">
+			<div class="form-group hide clientname">	
+				<label class="col-sm-3 control-label">客户名：</label>
+				<div class="col-sm-8">
+					<input id="clientname"  class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">姓名：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">性别：</label>
+				<div class="col-sm-8">
+					<select id="sex" name="sex" class="form-control" >
+						<option >男 </option>
+						<option >女 </option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">证件类型：</label>
+				<div class="col-sm-8">
+					<select id="certificateType" name="certificateType" class="form-control m-b" th:with="type=${@dict.getType('app_linkman_certificate_type')}">
+	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+	                </select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">证件号码：</label>
+				<div class="col-sm-8">
+					<input id="certificateCode" name="certificateCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">称谓：</label>
+				<div class="col-sm-8">
+					<input id="alias" name="alias" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">部门：</label>
+				<div class="col-sm-8">
+					<input id="dept" name="dept" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">职务：</label>
+				<div class="col-sm-8">
+					<input id="post" name="post" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">手机：</label>
+				<div class="col-sm-8">
+					<input id="phone" name="phone" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">钉钉号：</label>
+				<div class="col-sm-8">
+					<input id="dingding" name="dingding" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工作电话：</label>
+				<div class="col-sm-8">
+					<input id="workPhone" name="workPhone" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">传真：</label>
+				<div class="col-sm-8">
+					<input id="fax" name="fax" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">邮箱：</label>
+				<div class="col-sm-8">
+					<input id="email" name="email" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">微信号：</label>
+				<div class="col-sm-8">
+					<input id="wechat" name="wechat" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">QQ：</label>
+				<div class="col-sm-8">
+					<input id="qQ" name="qQ" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">旺旺号：</label>
+				<div class="col-sm-8">
+					<input id="aliwangwang" name="aliwangwang" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">邮编：</label>
+				<div class="col-sm-8">
+					<input id="postcode" name="postcode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">住址：</label>
+				<div class="col-sm-8">
+					<input id="address" name="address" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">生日：</label>
+				<div class="col-sm-8">
+					<input id="birthday" name="birthday" class="time-input form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "copyright/appLinkman"
+		$("#form-appLinkman-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-appLinkman-add').serialize());
+	        }
+	    }
+		
+		function compare(){
+			var clientCode=$("#clientCode").val();
+			 $.ajax({
+                 type: "post",
+                 url: "/copyright/appClient/byCode",
+                 data: "code="+clientCode,
+                 success: function (data) {
+                
+                	  var temp = "";  
+                	     for (var i in data) { //用javascript的for/in循环遍历对象的属性  
+                	         temp += i + ":" + data[i] + "\n";  
+                			 if(i=="companyName"){
+                				 $(".clientname").removeClass("hide");
+                				 $("#clientname").prop("value",data[i]);
+                			 }
+                			 if(i=="clientId"){
+                				 $("#clientId").prop("value",data[i]);
+                			 }
+                	     }  
+                 }
+             });
+			
+			
+			
+		}
+		
+		
+	</script>
+</body>
+</html>

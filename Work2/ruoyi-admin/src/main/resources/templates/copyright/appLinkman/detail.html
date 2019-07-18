@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改联系人')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appLinkman-edit" th:object="${appLinkman}">
+            <input id="linkmanId" name="linkmanId" th:field="*{linkmanId}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">客户名：</label>
+				<div class="col-sm-8">
+					<input id="companyName"  th:field="*{client.companyName}" disabled="disabled" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">客户编号：</label>
+				<div class="col-sm-8">
+					<input id="companyCode"  th:field="*{client.code}" disabled="disabled" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">姓名：</label>
+				<div class="col-sm-8">
+					<input id="name"  th:field="*{name}" disabled="disabled" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">性别：</label>
+				<div class="col-sm-8">
+					<input id="sex"  th:field="*{sex}" disabled="disabled" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">证件类型：</label>
+				<div class="col-sm-8">
+					<input id="certificateType"  disabled="disabled" th:field="*{certificateType}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">证件号码：</label>
+				<div class="col-sm-8">
+					<input id="certificateCode" disabled="disabled" th:field="*{certificateCode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">称谓：</label>
+				<div class="col-sm-8">
+					<input id="alias" disabled="disabled" th:field="*{alias}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">部门：</label>
+				<div class="col-sm-8">
+					<input id="dept" disabled="disabled" th:field="*{dept}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">职务：</label>
+				<div class="col-sm-8">
+					<input id="post" disabled="disabled" th:field="*{post}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">手机：</label>
+				<div class="col-sm-8">
+					<input id="phone" disabled="disabled" th:field="*{phone}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">钉钉号：</label>
+				<div class="col-sm-8">
+					<input id="dingding" disabled="disabled" th:field="*{dingding}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工作电话：</label>
+				<div class="col-sm-8">
+					<input id="workPhone" disabled="disabled" th:field="*{workPhone}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">传真：</label>
+				<div class="col-sm-8">
+					<input id="fax" disabled="disabled" th:field="*{fax}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">邮箱：</label>
+				<div class="col-sm-8">
+					<input id="email" disabled="disabled" th:field="*{email}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">微信号：</label>
+				<div class="col-sm-8">
+					<input id="wechat" disabled="disabled" th:field="*{wechat}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">QQ：</label>
+				<div class="col-sm-8">
+					<input id="qQ" disabled="disabled" th:field="*{qQ}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">旺旺号：</label>
+				<div class="col-sm-8">
+					<input id="aliwangwang" disabled="disabled" th:field="*{aliwangwang}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">邮编：</label>
+				<div class="col-sm-8">
+					<input id="postcode" disabled="disabled" th:field="*{postcode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">住址：</label>
+				<div class="col-sm-8">
+					<input id="address" disabled="disabled" th:field="*{address}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" disabled="disabled" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建时间：</label>
+				<div class="col-sm-8">
+					<input id="creationTime" disabled="disabled"  th:value="${#dates.format(appLinkman.creationTime, 'yyyy-MM-dd')}" class="time-input form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">生日：</label>
+				<div class="col-sm-8">
+					<input id="birthday" disabled="disabled"  th:value="${#dates.format(appLinkman.birthday, 'yyyy-MM-dd')}" class="time-input form-control" type="text" >
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "copyright/appLinkman";
+		$("#form-appLinkman-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix , $('#form-appLinkman-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

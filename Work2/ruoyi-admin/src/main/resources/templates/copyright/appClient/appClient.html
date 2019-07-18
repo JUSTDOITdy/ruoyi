@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<th:block th:include="include :: header('客户列表')" />
+</head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>客户类型： <select name="type">
+									<option value="">所有</option>
+									<option value="1">公司</option>
+									<option value="2">个人</option>
+							</select>
+							</li>
+							<li>公司名称：<input type="text" name="companyName" />
+							</li>
+
+							<li>客户种类： <select name="clientKind"
+								th:with="type=${@dict.getType('app_client_type')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+										th:value="${dict.dictValue}"></option>
+							</select>
+							</li>
+							<li>编号：<input type="text" name="code" />
+							</li>
+
+							<li><a class="btn btn-primary btn-rounded btn-sm"
+								onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm"
+								onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+			<div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()"
+					shiro:hasPermission="copyright:appClient:add"> <i
+					class="fa fa-plus"></i> 添加
+				</a> <a class="btn btn-primary btn-edit disabled"
+					onclick="$.operate.edit()"
+					shiro:hasPermission="copyright:appClient:edit"> <i
+					class="fa fa-edit"></i> 修改
+				</a> <a class="btn btn-danger btn-del disabled"
+					onclick="$.operate.removeAll()"
+					shiro:hasPermission="copyright:appClient:remove"> <i
+					class="fa fa-remove"></i> 删除
+				</a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('copyright:appClient:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('copyright:appClient:remove')}]];
+        var prefix = ctx + "copyright/appClient";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "客户",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'clientId', 
+					title : '客户表id',
+					visible: false
+				},
+				{
+					field : 'type', 
+					title : '客户类型',
+					sortable: true
+				},
+				{
+					field : 'companyName', 
+					title : '公司名称 / 姓名'
+				},
+				{
+					field : 'province', 
+					title : '省份',
+					sortable: true
+				},
+				{
+					field : 'city', 
+					title : '城市'
+				},
+				{
+					field : 'region', 
+					title : '区域'
+				},
+				{
+					field : 'site', 
+					title : '单位地址'
+				},
+				{
+					field : 'clientKind', 
+					title : '客户种类',
+					sortable: true
+				},
+				{
+					field : 'phone', 
+					title : '手机'
+				},
+				{
+					field : 'wordPhone', 
+					title : '工作电话'
+				},
+				{
+					field : 'remark', 
+					title : '备注'
+				},
+				{
+					field : 'code', 
+					title : '编号',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.clientId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.clientId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

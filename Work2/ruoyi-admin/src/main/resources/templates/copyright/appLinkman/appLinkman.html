@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('联系人列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								姓名：<input type="text" name="name"/>
+							</li>
+
+							<li>
+								性别：
+								<select name="sex">
+									<option value="">所有</option>
+									<option>男</option>
+									<option>女</option>
+								</select>
+							</li>
+
+							<li>
+								证件号码：<input type="text" name="certificateCode"/>
+							</li>
+							<li>
+								钉钉号：<input type="text" name="dingding"/>
+							</li>
+
+							<li>
+								工作电话：<input type="text" name="workPhone"/>
+							</li>
+							<li>
+								创建时间：<input type="text" name="creationTime"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="copyright:appLinkman:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="copyright:appLinkman:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="copyright:appLinkman:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var detailFlag = [[${@permission.hasPermi('copyright:appLinkman:detail')}]];
+        var editFlag = [[${@permission.hasPermi('copyright:appLinkman:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('copyright:appLinkman:remove')}]];
+        var prefix = ctx + "copyright/appLinkman";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                detailUrl: prefix + "/detail/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "联系人",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'linkmanId', 
+					title : 'ID',
+					visible: true
+				},
+				{
+					field : 'client.companyName', 
+					title : '客户名',
+					sortable: true
+				},
+				{
+					field : 'client.code', 
+					title : '客户编号',
+					sortable: true
+				},
+				{
+					field : 'name', 
+					title : '姓名',
+					sortable: true
+				},
+				{
+					field : 'sex', 
+					title : '性别',
+					sortable: true
+				},
+				{
+					field : 'certificateType', 
+					title : '证件类型',
+					sortable: true
+				},
+				{
+					field : 'certificateCode', 
+					title : '证件号码',
+					sortable: true
+				},
+				/* {
+					field : 'alias', 
+					title : '称谓',
+					sortable: true
+				},
+				{
+					field : 'dept', 
+					title : '部门',
+					sortable: true
+				},
+				{
+					field : 'post', 
+					title : '职务',
+					sortable: true
+				}, */
+				{
+					field : 'phone', 
+					title : '手机',
+					sortable: true
+				},
+				/* {
+					field : 'dingding', 
+					title : '钉钉号',
+					sortable: true
+				},
+				{
+					field : 'workPhone', 
+					title : '工作电话',
+					sortable: true
+				},
+				{
+					field : 'fax', 
+					title : '传真',
+					sortable: true
+				},
+				{
+					field : 'email', 
+					title : '邮箱',
+					sortable: true
+				},
+				{
+					field : 'wechat', 
+					title : '微信号',
+					sortable: true
+				},
+				{
+					field : 'qQ', 
+					title : 'QQ',
+					sortable: true
+				},
+				{
+					field : 'aliwangwang', 
+					title : '旺旺号',
+					sortable: true
+				},
+				{
+					field : 'postcode', 
+					title : '邮编',
+					sortable: true
+				},
+				{
+					field : 'address', 
+					title : '住址',
+					sortable: true
+				},
+				{
+					field : 'remark', 
+					title : '备注',
+					sortable: true
+				},
+				{
+					field : 'creationTime', 
+					title : '创建时间',
+					sortable: true
+				},
+				{
+					field : 'birthday', 
+					title : '生日',
+					sortable: true
+				}, */
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-info btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.linkmanId + '\')"><i class="fa fa-edit"></i>详情</a> ');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.linkmanId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.linkmanId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

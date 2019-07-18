@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改产品')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appProduct-edit" th:object="${appProduct}">
+            <input id="productId" name="productId" th:field="*{productId}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">类别：</label>
+				<div class="col-sm-8">
+					<input id="type" name="type" th:field="*{type}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">产品名称：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" th:field="*{name}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">销售价：</label>
+				<div class="col-sm-8">
+					<input id="salesPrice" name="salesPrice" th:field="*{salesPrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">采购价：</label>
+				<div class="col-sm-8">
+					<input id="purchasePrice" name="purchasePrice" th:field="*{purchasePrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">折扣：</label>
+				<div class="col-sm-8">
+					<input id="discount" name="discount" th:field="*{discount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">供应商公司名：</label>
+				<div class="col-sm-8">
+					<input id="supplierCompany" name="supplierCompany" th:field="*{supplierCompany}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">联系人姓名：</label>
+				<div class="col-sm-8">
+					<input id="supplierName" name="supplierName" th:field="*{supplierName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">联系人电话：</label>
+				<div class="col-sm-8">
+					<input id="supplierPhone" name="supplierPhone" th:field="*{supplierPhone}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">联系人qq：</label>
+				<div class="col-sm-8">
+					<input id="supplierQq" name="supplierQq" th:field="*{supplierQq}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">申报奖励：</label>
+				<div class="col-sm-8">
+					<input id="award" name="award" th:field="*{award}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发票【0：无票 1：有票】：</label>
+				<div class="col-sm-8">
+					<input id="invoice" name="invoice" th:field="*{invoice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">有效【0：关闭 1：有效】：</label>
+				<div class="col-sm-8">
+					<input id="valid" name="valid" th:field="*{valid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">顺序：</label>
+				<div class="col-sm-8">
+					<input id="order" name="order" th:field="*{order}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "copyright/appProduct";
+		$("#form-appProduct-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-appProduct-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

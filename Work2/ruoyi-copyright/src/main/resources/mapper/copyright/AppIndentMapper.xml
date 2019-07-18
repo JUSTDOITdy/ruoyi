@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppIndentMapper">
+    
+    <resultMap type="AppIndent" id="AppIndentResult">
+        <result property="indentId"    column="indent_id"    />
+        <result property="indentType"    column="indent_type"    />
+        <result property="product"    column="product"    />
+        <result property="code"    column="code"    />
+        <result property="clientId"    column="client_id"    />
+        <result property="purchaseDate"    column="purchase_date"    />
+        <result property="orderAmount"    column="order_amount"    />
+        <result property="discount"    column="discount"    />
+        <result property="materials"    column="materials"    />
+        <result property="invoice"    column="invoice"    />
+        <result property="remark"    column="remark"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="deliveryTime"    column="delivery_time"    />
+        <result property="trackingNumber"    column="tracking_number"    />
+        <result property="serviceCondition"    column="service_condition"    />
+        <result property="creator"    column="creator"    />
+        <result property="creationTime"    column="creation_time"    />
+    </resultMap>
+	
+	<sql id="selectAppIndentVo">
+        select indent_id, indent_type,product, code, client_id, purchase_date, order_amount,discount, materials, invoice, remark, order_status, delivery_time, tracking_number, service_condition, creator, creation_time from app_indent
+    </sql>
+	
+    <select id="selectAppIndentList" parameterType="AppIndent" resultMap="AppIndentResult">
+        <include refid="selectAppIndentVo"/>
+        <where>  
+            <if test="indentId != null "> and indent_id = #{indentId}</if>
+            <if test="indentType != null and indentType != '' "> and indent_type = #{indentType}</if>
+             <if test="product != null "> and product = #{product}</if>
+             <if test="code != null  and code != '' "> and code = #{code}</if>
+             <if test="clientId != null "> and client_id = #{clientId}</if>
+             <if test="purchaseDate != null "> and purchase_date = #{purchaseDate}</if>
+             <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
+             <if test="discount != null and discount != ''"> and discount = #{discount}</if>
+             <if test="materials != null  and materials != '' "> and materials = #{materials}</if>
+             <if test="invoice != null and invoice != ''"> and invoice = #{invoice}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="orderStatus != null  and orderStatus != '' "> and order_status = #{orderStatus}</if>
+             <if test="deliveryTime != null "> and delivery_time = #{deliveryTime}</if>
+             <if test="trackingNumber != null  and trackingNumber != '' "> and tracking_number = #{trackingNumber}</if>
+             <if test="serviceCondition != null  and serviceCondition != '' "> and service_condition = #{serviceCondition}</if>
+             <if test="creator != null  and creator != '' "> and creator = #{creator}</if>
+             <if test="creationTime != null "> and creation_time = #{creationTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppIndentById" parameterType="Integer" resultMap="AppIndentResult">
+        <include refid="selectAppIndentVo"/>
+        where indent_id = #{indentId}
+    </select>
+        
+    <insert id="insertAppIndent" parameterType="AppIndent" useGeneratedKeys="true" keyProperty="indentId">
+        insert into app_indent
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		   <if test="indentType != null  ">indent_type,</if>
+			<if test="product != null  ">product,</if>
+			<if test="code != null  and code != ''  ">code,</if>
+			<if test="clientId != null  ">client_id,</if>
+			<if test="purchaseDate != null  ">purchase_date,</if>
+			<if test="orderAmount != null  ">order_amount,</if>
+			<if test="discount != null and discount != '' ">discount,</if>
+			<if test="materials != null  and materials != ''  ">materials,</if>
+			<if test="invoice != null and invoice != '' ">invoice,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="orderStatus != null  and orderStatus != ''  ">order_status,</if>
+			<if test="deliveryTime != null  ">delivery_time,</if>
+			<if test="trackingNumber != null  and trackingNumber != ''  ">tracking_number,</if>
+			<if test="serviceCondition != null  and serviceCondition != ''  ">service_condition,</if>
+			<if test="creator != null  and creator != ''  ">creator,</if>
+			<if test="creationTime != null  ">creation_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="indentType != null  ">#{indentType},</if>
+			<if test="product != null  ">#{product},</if>
+			<if test="code != null  and code != ''  ">#{code},</if>
+			<if test="clientId != null  ">#{clientId},</if>
+			<if test="purchaseDate != null  ">#{purchaseDate},</if>
+			<if test="orderAmount != null  ">#{orderAmount},</if>
+			<if test="discount != null  and discount != ''  ">#{discount},</if>
+			<if test="materials != null  and materials != ''  ">#{materials},</if>
+			<if test="invoice != null  and invoice != ''  ">#{invoice},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="orderStatus != null  and orderStatus != ''  ">#{orderStatus},</if>
+			<if test="deliveryTime != null  ">#{deliveryTime},</if>
+			<if test="trackingNumber != null  and trackingNumber != ''  ">#{trackingNumber},</if>
+			<if test="serviceCondition != null  and serviceCondition != ''  ">#{serviceCondition},</if>
+			<if test="creator != null  and creator != ''  ">#{creator},</if>
+			<if test="creationTime != null  ">#{creationTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppIndent" parameterType="AppIndent">
+        update app_indent
+        <trim prefix="SET" suffixOverrides=",">
+       	    <if test="indentType != null  ">indent_type = #{indentType},</if>
+            <if test="product != null  ">product = #{product},</if>
+            <if test="code != null  and code != ''  ">code = #{code},</if>
+            <if test="clientId != null  ">client_id = #{clientId},</if>
+            <if test="purchaseDate != null  ">purchase_date = #{purchaseDate},</if>
+            <if test="orderAmount != null  ">order_amount = #{orderAmount},</if>
+            <if test="discount != null  and discount != ''  ">discount = #{discount},</if>
+            <if test="materials != null  and materials != ''  ">materials = #{materials},</if>
+            <if test="invoice != null  and invoice != ''  ">invoice = #{invoice},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="orderStatus != null  and orderStatus != ''  ">order_status = #{orderStatus},</if>
+            <if test="deliveryTime != null  ">delivery_time = #{deliveryTime},</if>
+            <if test="trackingNumber != null  and trackingNumber != ''  ">tracking_number = #{trackingNumber},</if>
+            <if test="serviceCondition != null  and serviceCondition != ''  ">service_condition = #{serviceCondition},</if>
+            <if test="creator != null  and creator != ''  ">creator = #{creator},</if>
+            <if test="creationTime != null  ">creation_time = #{creationTime},</if>
+        </trim>
+        where indent_id = #{indentId}
+    </update>
+
+	<delete id="deleteAppIndentById" parameterType="Integer">
+        delete from app_indent where indent_id = #{indentId}
+    </delete>
+	
+    <delete id="deleteAppIndentByIds" parameterType="String">
+        delete from app_indent where indent_id in 
+        <foreach item="indentId" collection="array" open="(" separator="," close=")">
+            #{indentId}
+        </foreach>
+    </delete>
+    
+</mapper>
