@@ -65,7 +65,7 @@
         var removeFlag = [[${@permission.hasPermi('copyright:appProduct:remove')}]];
         var prefix = ctx + "copyright/appProduct";
 
-        $(function() {
+        $(function() {  //$(function(){...});  jquery初始化函数简化
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",

@@ -12,7 +12,7 @@
 				<div class="col-sm-8">
 					<select name="indentType" class="form-control m-b" th:with="type=${@dict.getType('app_indent_type')}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
-	                </select>
+	                </select>     
 				</div>
 			</div>
 			  <div class="form-group">	
@@ -185,13 +185,13 @@
 			</div>
 			
 		 	
-		 	<a class="form-group" onclick="$.operate.add()">
-					<i class="fa fa-plus"></i> 添加产品
-			</a>  
-			
+		 	<a id="adddet" class="form-group" onclick="$.operate.add()">
+					<i  class="fa fa-plus"></i> 添加产品
+			</a>
+		
 	
 			<!-- <a class="form-group" onclick="addDetail()">
-					<i class="fa fa-plus"></i> 添加href
+					<i class="fa fa-plus"></i> 添加href		
 			</a>  -->
 				
 				<!-- <div class="col-sm-6">
@@ -213,7 +213,9 @@
     <div th:include="include::footer"></div>
     <th:block th:include="include :: select2-js" />
     <script type="text/javascript">
-		var prefix = ctx + "copyright/appIndent"
+    
+		var prefix = ctx + "copyright/appDetailed"
+		
 		$("#form-appIndent-add").validate({
 			rules:{
 				xxxx:{
@@ -228,25 +230,36 @@
 	            $.operate.save(prefix + "/add", $('#form-appIndent-add').serialize());
 	        }
 	    }
-		/*  function addDetail(){
-			 window.location.href="/copyright/appDetailed/add";
-		}  */
-		/* function addDetail(){
-			 window.location.href="/copyright/appDetailed/add";
-		}
-		 */
+		
+		 //产品增加按钮
 		 $(function() {
 	            var options = {
 	                url:"copyright/appDetailed/list",
-	                createUrl: prefix + "/add",
+	                createUrl: prefix + "/add",   //这个竟然有用
 	                updateUrl: prefix + "/edit/{id}",
 	                removeUrl: prefix + "/remove",
 					exportUrl: prefix + "/export",
 	                modalName: "产品",
-			        showExport: true,
+				    showExport: true    
 	            };
 	           $.table.init(options);
-	        });
+	           
+	            /* $('#btnhtml').click(function(){
+					$('#div1').html('woshihtmltext');
+				 }); */
+				 
+				  $('#adddet').click(function(){
+	     	 	 	 var $line = $("<br/><span>产品:</span>");
+	     	  		 $('#adddet').append($line);
+	      		  });
+				 
+				 /* $('#btnjquery').click(function(){
+		     	 	 	 var $line = $("<span>产品11:</span>");
+		     	  		 $("#div1").append($line);
+		      	   }); */ //可以有两个click事件
+	        }); 
+	        
+		 
 	</script>
 </body>
 </html>

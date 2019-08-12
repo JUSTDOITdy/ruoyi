@@ -3,7 +3,7 @@
  * Copyright (c) 2019 ruoyi
  */
 (function ($) {
-    $.extend({
+    $.extend({ //这个大括号很关键，只有一个对象{}的话，就可用来插件开发，多个对象{}是合并
     	_tree: {},
     	btTable: {},
     	bttTable: {},
@@ -576,8 +576,9 @@
                     url = "/404.html";
                 };
                 if ($.common.isEmpty(width)) {
-                	width = 800;
+                	width = 1200;
                 };
+                
                 if ($.common.isEmpty(height)) {
                 	height = ($(window).height() - 50);
                 };
@@ -609,7 +610,7 @@
             openOptions: function (options) {
             	var _url = $.common.isEmpty(options.url) ? "/404.html" : options.url; 
             	var _title = $.common.isEmpty(options.title) ? "系统窗口" : options.title; 
-                var _width = $.common.isEmpty(options.width) ? "800" : options.width; 
+                var _width = $.common.isEmpty(options.width) ? "1200" : options.width; 
                 var _height = $.common.isEmpty(options.height) ? ($(window).height() - 50) : options.height;
                 var _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
                 if ($.common.isEmpty(options.yes)) {
@@ -648,7 +649,7 @@
                     url = "/404.html";
                 };
                 if ($.common.isEmpty(width)) {
-                	width = 800;
+                	width = 1200;
                 };
                 if ($.common.isEmpty(height)) {
                 	height = ($(window).height() - 50);
@@ -802,7 +803,7 @@
             	});
             },
             // 添加信息
-            add: function(id) {
+            add: function(id) {  //这个参数id是干什么用的？？
                 $.modal.open("添加" + $.table._option.modalName, $.operate.addUrl(id));
             },
             // 添加信息，以tab页展现
