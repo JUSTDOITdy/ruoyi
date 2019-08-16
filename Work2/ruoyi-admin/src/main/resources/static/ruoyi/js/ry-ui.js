@@ -578,13 +578,20 @@
                 if ($.common.isEmpty(width)) {
                 	width = 1200;
                 };
+                if (width==0) {
+                	width = 1200;
+                };
                 
                 if ($.common.isEmpty(height)) {
-                	height = ($(window).height() - 50);
+                	height = ($(window).height() - 20);
+                };
+                if (height==0) {
+                	height = ($(window).height() - 20);
                 };
                 if ($.common.isEmpty(callback)) {
                     callback = function(index, layero) {
-                        var iframeWin = layero.find('iframe')[0];
+                    	//这个layero是什么东西？是本身的这个页面对象
+                        var iframeWin = layero.find('iframe')[0]; //转成dom对象
                         iframeWin.contentWindow.submitHandler(index, layero);
                     }
                 }
@@ -730,6 +737,7 @@
         	    };
         	    $.ajax(config)
             },
+            
             // post请求传输
             post: function(url, data, callback) {
             	$.operate.submit(url, "post", "json", data, callback);
@@ -881,6 +889,26 @@
         	        	}
         	        	$.operate.successCallback(result);
         	        }
+        	    };
+        	    $.ajax(config)
+            },
+            // 提交清单
+            savedet: function(url, data, callback) {
+            	var config = {
+        	        url: url,
+        	        type: "post",
+        	        dataType: "json",
+        	        data: data,
+        	        /*beforeSend: function () {
+        	        	$.modal.loading("正在处理中，请稍后...");
+        	        	//$.modal.disable();
+        	        },
+        	        success: function(result) {
+        	        	if (typeof callback == "function") {
+        	        	    callback(result);
+        	        	}
+        	        	//$.operate.successCallback(result);
+        	        }*/
         	    };
         	    $.ajax(config)
             },

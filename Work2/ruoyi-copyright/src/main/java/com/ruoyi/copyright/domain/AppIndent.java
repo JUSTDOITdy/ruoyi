@@ -3,7 +3,7 @@ package com.ruoyi.copyright.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.domain.BaseEntity;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 订单表 app_indent

@@ -18,7 +18,7 @@ public interface AppDetailedMapper
      * @return 清单信息
      */
 	public AppDetailed selectAppDetailedById(Integer detailedId);
-	
+	public List<AppDetailed> selectAppDetailedByCode(String coded);
 	/**
      * 查询清单列表
      * 

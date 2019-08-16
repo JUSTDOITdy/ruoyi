@@ -76,7 +76,7 @@ public class AppProductController extends BaseController
 	{
 		List<AppProduct> appProducts   =	appProductService.selectAppProductList(new AppProduct());
 		map.put("pro",appProducts );
-		System.out.println(appProducts);
+		//System.out.println(appProducts);
 	    return prefix + "/add";
 	}
 	

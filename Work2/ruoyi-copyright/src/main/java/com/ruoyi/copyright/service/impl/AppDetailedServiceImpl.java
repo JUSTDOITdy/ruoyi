@@ -31,6 +31,12 @@ public class AppDetailedServiceImpl implements IAppDetailedService
 	{
 	    return appDetailedMapper.selectAppDetailedById(detailedId);
 	}
+    
+    @Override
+   	public List<AppDetailed> selectAppDetailedByCode(String coded)
+   	{
+   	    return appDetailedMapper.selectAppDetailedByCode(coded);
+   	}
 	
 	/**
      * 查询清单列表
@@ -44,6 +50,8 @@ public class AppDetailedServiceImpl implements IAppDetailedService
 	    return appDetailedMapper.selectAppDetailedList(appDetailed);
 	}
 	
+	
+	
     /**
      * 新增清单
      * 
@@ -52,7 +60,7 @@ public class AppDetailedServiceImpl implements IAppDetailedService
      */
 	@Override
 	public int insertAppDetailed(AppDetailed appDetailed)
-	{
+	{   
 	    return appDetailedMapper.insertAppDetailed(appDetailed);
 	}
 	

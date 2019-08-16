@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.copyright;
 
+import java.util.Iterator;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.copyright.domain.AppDetailed;
@@ -81,11 +83,12 @@ public class AppDetailedController extends BaseController
 	public String add(ModelMap map)
 	{
 		
-		List<AppProduct> appProducts   =	appProductService.selectAppProductList(new AppProduct());
+		List<AppProduct> appProducts   = appProductService.selectAppProductList(new AppProduct());
 		map.put("pro",appProducts );
 		System.out.println(appProducts);
 	    return prefix + "/add";
 	}
+	
 	
 	/**
 	 * 新增保存清单
@@ -95,7 +98,7 @@ public class AppDetailedController extends BaseController
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(AppDetailed appDetailed)
-	{		
+	{	
 		return toAjax(appDetailedService.insertAppDetailed(appDetailed));
 	}
 
@@ -110,6 +113,21 @@ public class AppDetailedController extends BaseController
 	    return prefix + "/edit";
 	}
 	
+	@GetMapping("/select/{code}")
+	@ResponseBody
+	public List<AppDetailed> select(@PathVariable("code") String code)
+	{   
+		List<AppDetailed> listappDetailed = appDetailedService.selectAppDetailedByCode(code);
+		Iterator<AppDetailed> iterator = listappDetailed.iterator();
+		while(iterator.hasNext()){
+			AppDetailed i = (AppDetailed)iterator.next();
+		    System.out.println(i);
+		}
+		return listappDetailed;
+		//mmap.put("appDetailed", appDetailed);
+	    //return "copyright/appIndent" + "/edit";
+	}
+	
 	/**
 	 * 修改保存清单
 	 */
@@ -119,6 +137,7 @@ public class AppDetailedController extends BaseController
 	@ResponseBody
 	public AjaxResult editSave(AppDetailed appDetailed)
 	{		
+		System.out.println(appDetailed);
 		return toAjax(appDetailedService.updateAppDetailed(appDetailed));
 	}
 	

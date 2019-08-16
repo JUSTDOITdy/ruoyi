@@ -19,17 +19,28 @@ public class AppDetailed extends BaseEntity
 	/** 清单表id */
 	private Integer detailedId;
 	/** 关联订单表id */
-	private Integer indentId;
+	private String coded;
 	/** 关联产品表id*/
 	private Integer productId;
 	/** 产品*/
 	private String product;
+	/** 软件（作品）名字*/
+	private String worksName;
+	/** 价格*/
+	private Integer price;
+	/** 是否代写*/
+	private String ghostWrite;
 	/** 数量 */
 	private Integer amount;
+	/** 递交时间 */
+	private Date submitTime;
 	/** 发货时间 */
-	private java.util.Date deliveryTime;
+	private Date deliveryTime;
+	/** 流水号 */
+	private String serialsNumber;
 	/** 快递单号 */
 	private String trackingNumber;
+	
 
 	public void setDetailedId(Integer detailedId) 
 	{
@@ -40,14 +51,14 @@ public class AppDetailed extends BaseEntity
 	{
 		return detailedId;
 	}
-	public void setIndentId(Integer indentId) 
+	public void setCoded(String coded) 
 	{
-		this.indentId = indentId;
+		this.coded = coded;
 	}
 
-	public Integer getIndentId() 
+	public String getCoded() 
 	{
-		return indentId;
+		return coded;
 	}
 	public void setProductId(Integer productId) 
 	{
@@ -67,6 +78,14 @@ public class AppDetailed extends BaseEntity
 		this.product = product;
 	}
 
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
 	public void setAmount(Integer amount) 
 	{
 		this.amount = amount;
@@ -77,11 +96,11 @@ public class AppDetailed extends BaseEntity
 		return amount;
 	}
 
-    public java.util.Date getDeliveryTime() {
+    public Date getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(java.util.Date deliveryTime) {
+	public void setDeliveryTime(Date deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 
@@ -92,15 +111,53 @@ public class AppDetailed extends BaseEntity
 	public void setTrackingNumber(String trackingNumber) {
 		this.trackingNumber = trackingNumber;
 	}
+	
+
+	public String getWorksName() {
+		return worksName;
+	}
+
+	public void setWorksName(String worksName) {
+		this.worksName = worksName;
+	}
+
+	public String getGhostWrite() {
+		return ghostWrite;
+	}
+
+	public void setGhostWrite(String ghostWrite) {
+		this.ghostWrite = ghostWrite;
+	}
+
+	public Date getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(Date submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public String getSerialsNumber() {
+		return serialsNumber;
+	}
+
+	public void setSerialsNumber(String serialsNumber) {
+		this.serialsNumber = serialsNumber;
+	}
 
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("detailedId", getDetailedId())
-            .append("indentId", getIndentId())
+            .append("coded", getCoded())
             .append("productId", getProductId())
             .append("product", getProduct())
+            .append("worksName", getWorksName())
+            .append("price", getPrice())
+            .append("ghostWrite", getGhostWrite())
             .append("amount", getAmount())
+            .append("submitTime", getSubmitTime())
             .append("deliveryTime", getDeliveryTime())
+            .append("serialsNumber", getSerialsNumber())
             .append("trackingNumber", getTrackingNumber())
             .toString();
     }

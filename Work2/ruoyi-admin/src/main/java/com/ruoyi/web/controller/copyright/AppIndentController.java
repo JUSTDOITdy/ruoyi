@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.copyright;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,12 @@ public class AppIndentController extends BaseController
 	    return prefix + "/add";*/
 		
 		List<AppProduct> appProducts   =	appProductService.selectAppProductList(new AppProduct());
-		map.put("pro",appProducts );
+		
+		List<String> list=new ArrayList<>();
+		for (AppProduct appProduct : appProducts) {
+			list.add(appProduct.getType()+":"+appProduct.getWorkdays());
+		}
+		map.put("pro",list );
 		System.out.println(appProducts);
 		
 	    return prefix + "/add";
@@ -111,6 +117,7 @@ public class AppIndentController extends BaseController
 	public String edit(@PathVariable("indentId") Integer indentId, ModelMap mmap)
 	{
 		AppIndent appIndent = appIndentService.selectAppIndentById(indentId);
+		System.out.println(appIndent);
 		mmap.put("appIndent", appIndent);
 	    return prefix + "/edit";
 	}
