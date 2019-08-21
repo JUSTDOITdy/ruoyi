@@ -583,10 +583,10 @@
                 };
                 
                 if ($.common.isEmpty(height)) {
-                	height = ($(window).height() - 20);
+                	height = ($(window).height() - 5);
                 };
                 if (height==0) {
-                	height = ($(window).height() - 20);
+                	height = ($(window).height() - 5);
                 };
                 if ($.common.isEmpty(callback)) {
                     callback = function(index, layero) {
@@ -613,6 +613,7 @@
             	    }
             	});
             },
+            
             // 弹出层指定参数选项
             openOptions: function (options) {
             	var _url = $.common.isEmpty(options.url) ? "/404.html" : options.url; 

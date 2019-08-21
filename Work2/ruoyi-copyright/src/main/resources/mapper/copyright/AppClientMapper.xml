@@ -7,8 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="AppClient" id="AppClientResult">
         <result property="clientId"    column="client_id"    />
         <result property="type"    column="type"    />
-        <result property="companyName"    column="company_name"    />
-        <result property="name"    column="name"    />
+        <result property="clientName"    column="client_name"    />
         <result property="region"    column="region"    />
         <result property="province"    column="province"    />
         <result property="city"    column="city"    />
@@ -16,12 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="clientKind"    column="client_kind"    />
         <result property="phone"    column="phone"    />
         <result property="wordPhone"    column="word_phone"    />
-        <result property="remark"    column="remark"    />
         <result property="code"    column="code"    />
+        <result property="remarks"    column="remarks"    />
     </resultMap>
 	
 	<sql id="selectAppClientVo">
-        select client_id, type, company_name, name, region, province, city, site, client_kind, phone, word_phone, remark, code from app_client
+        select client_id, type, client_name, region, province, city, site, client_kind, phone, word_phone, code, remarks from app_client
     </sql>
 	
     <select id="selectAppClientList" parameterType="AppClient" resultMap="AppClientResult">
@@ -29,8 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="clientId != null "> and client_id = #{clientId}</if>
              <if test="type != null  and type != '' "> and type = #{type}</if>
-             <if test="companyName != null  and companyName != '' "> and company_name = #{companyName}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="clientName != null  and clientName != '' "> and client_name = #{clientName}</if>
              <if test="region != null  and region != '' "> and region = #{region}</if>
              <if test="province != null  and province != '' "> and province = #{province}</if>
              <if test="city != null  and city != '' "> and city = #{city}</if>
@@ -38,8 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="clientKind != null  and clientKind != '' "> and client_kind = #{clientKind}</if>
              <if test="phone != null  and phone != '' "> and phone = #{phone}</if>
              <if test="wordPhone != null  and wordPhone != '' "> and word_phone = #{wordPhone}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
              <if test="code != null  and code != '' "> and code = #{code}</if>
+             <if test="remarks != null  and remarks != '' "> and remarks = #{remarks}</if>
          </where>
     </select>
     
@@ -47,17 +45,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectAppClientVo"/>
         where client_id = #{clientId}
     </select>
+    
     <select id="selectAppClientByCode" parameterType="String" resultMap="AppClientResult">
         <include refid="selectAppClientVo"/>
         where code = #{code}
     </select>
+    <select id="selectAppClientByName" parameterType="String" resultMap="AppClientResult">
+        <include refid="selectAppClientVo"/>
+        where client_name = #{clientName}
+    </select>
+    <select id="selectByLike" parameterType="java.lang.String" resultMap="AppClientResult">
+  		select * from app_client where client_name like concat("%",#{search},"%")
+   </select>
+
         
     <insert id="insertAppClient" parameterType="AppClient" useGeneratedKeys="true" keyProperty="clientId">
         insert into app_client
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="type != null  and type != ''  ">type,</if>
-			<if test="companyName != null  and companyName != ''  ">company_name,</if>
-			<if test="name != null  and name != ''  ">name,</if>
+			<if test="clientName != null  and clientName != ''  ">client_name,</if>
 			<if test="region != null  and region != ''  ">region,</if>
 			<if test="province != null  and province != ''  ">province,</if>
 			<if test="city != null  and city != ''  ">city,</if>
@@ -65,13 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="clientKind != null  and clientKind != ''  ">client_kind,</if>
 			<if test="phone != null  and phone != ''  ">phone,</if>
 			<if test="wordPhone != null  and wordPhone != ''  ">word_phone,</if>
-			<if test="remark != null  and remark != ''  ">remark,</if>
 			<if test="code != null  and code != ''  ">code,</if>
+			<if test="remarks != null  and remarks != ''  ">remarks,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="type != null  and type != ''  ">#{type},</if>
-			<if test="companyName != null  and companyName != ''  ">#{companyName},</if>
-			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="clientName != null  and clientName != ''  ">#{clientName},</if>
 			<if test="region != null  and region != ''  ">#{region},</if>
 			<if test="province != null  and province != ''  ">#{province},</if>
 			<if test="city != null  and city != ''  ">#{city},</if>
@@ -79,8 +84,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="clientKind != null  and clientKind != ''  ">#{clientKind},</if>
 			<if test="phone != null  and phone != ''  ">#{phone},</if>
 			<if test="wordPhone != null  and wordPhone != ''  ">#{wordPhone},</if>
-			<if test="remark != null  and remark != ''  ">#{remark},</if>
 			<if test="code != null  and code != ''  ">#{code},</if>
+			<if test="remarks != null  and remarks != ''  ">#{remarks},</if>
          </trim>
     </insert>
 	 
@@ -88,8 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update app_client
         <trim prefix="SET" suffixOverrides=",">
             <if test="type != null  and type != ''  ">type = #{type},</if>
-            <if test="companyName != null  and companyName != ''  ">company_name = #{companyName},</if>
-            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="clientName != null  and clientName != ''  ">client_name = #{clientName},</if>
             <if test="region != null  and region != ''  ">region = #{region},</if>
             <if test="province != null  and province != ''  ">province = #{province},</if>
             <if test="city != null  and city != ''  ">city = #{city},</if>
@@ -97,8 +101,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientKind != null  and clientKind != ''  ">client_kind = #{clientKind},</if>
             <if test="phone != null  and phone != ''  ">phone = #{phone},</if>
             <if test="wordPhone != null  and wordPhone != ''  ">word_phone = #{wordPhone},</if>
-            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
             <if test="code != null  and code != ''  ">code = #{code},</if>
+            <if test="remarks != null  and remarks != ''  ">remarks = #{remarks},</if>
         </trim>
         where client_id = #{clientId}
     </update>

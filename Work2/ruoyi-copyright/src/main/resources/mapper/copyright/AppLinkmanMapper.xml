@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="AppLinkman" id="AppLinkmanResult">
         <result property="linkmanId"    column="linkman_id"    />
-        <result property="clientId"    column="client_id"    />
+        <result property="clientName"    column="client_name"    />
         <result property="name"    column="name"    />
         <result property="sex"    column="sex"    />
         <result property="certificateType"    column="certificate_type"    />
@@ -20,20 +20,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="fax"    column="fax"    />
         <result property="email"    column="email"    />
         <result property="wechat"    column="wechat"    />
-        <result property="qQ"    column="QQ"    />
+        <result property="QQ"    column="QQ"    />
         <result property="aliwangwang"    column="aliwangwang"    />
         <result property="postcode"    column="postcode"    />
         <result property="address"    column="address"    />
         <result property="remark"    column="remark"    />
         <result property="creationTime"    column="creation_time"    />
         <result property="birthday"    column="birthday"    />
-      <association property="client"   javaType="AppClient" resultMap="clientResult" />
     </resultMap>
 	
-	<resultMap type="AppClient" id="clientResult">
+	<!-- <resultMap type="AppClient" id="clientResult">
         <id property="clientId"    column="client_id"    />
         <result property="type"    column="type"    />
-        <result property="companyName"    column="company_name"    />
+        <result property="clientName"    column="client_name"    />
         <result property="name"    column="name"    />
         <result property="region"    column="region"    />
         <result property="province"    column="province"    />
@@ -44,13 +43,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="wordPhone"    column="word_phone"    />
         <result property="remark"    column="remark"    />
         <result property="code"    column="code"    />
-    </resultMap>
+    </resultMap> -->
 	
 	<sql id="selectAppLinkmanVo">
-        select linkman_id, client_id, name, sex, certificate_type, certificate_code, alias, dept, post, phone, dingding, work_phone, fax, email, wechat, QQ, aliwangwang, postcode, address, remark, creation_time, birthday from app_linkman
+        select linkman_id, client_name, name, sex, certificate_type, certificate_code, alias, dept, post, phone, dingding, work_phone, fax, email, wechat, QQ, aliwangwang, postcode, address, remark, creation_time, birthday from app_linkman
     </sql>
-	
-    <select id="selectAppLinkmanList" parameterType="AppLinkman" resultMap="AppLinkmanResult">
+    
+    
+	<select id="selectAppLinkmanList" parameterType="AppLinkman" resultMap="AppLinkmanResult">
+       <include refid="selectAppLinkmanVo"/>
+        <where>  
+            <if test="linkmanId != null "> and linkman_id = #{linkmanId}</if>
+             <if test="clientName != null "> and client_name = #{clientName}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
+             <if test="certificateType != null  and certificateType != '' "> and certificate_type = #{certificateType}</if>
+             <if test="certificateCode != null  and certificateCode != '' "> and certificate_code = #{certificateCode}</if>
+             <if test="alias != null  and alias != '' "> and alias = #{alias}</if>
+             <if test="dept != null  and dept != '' "> and dept = #{dept}</if>
+             <if test="post != null  and post != '' "> and post = #{post}</if>
+             <if test="phone != null  and phone != '' "> and phone = #{phone}</if>
+             <if test="dingding != null  and dingding != '' "> and dingding = #{dingding}</if>
+             <if test="workPhone != null  and workPhone != '' "> and work_phone = #{workPhone}</if>
+             <if test="fax != null  and fax != '' "> and fax = #{fax}</if>
+             <if test="email != null  and email != '' "> and email = #{email}</if>
+             <if test="wechat != null  and wechat != '' "> and wechat = #{wechat}</if>
+             <if test="QQ != null  and QQ != '' "> and QQ = #{QQ}</if>
+             <if test="aliwangwang != null  and aliwangwang != '' "> and aliwangwang = #{aliwangwang}</if>
+             <if test="postcode != null  and postcode != '' "> and postcode = #{postcode}</if>
+             <if test="address != null  and address != '' "> and address = #{address}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="creationTime != null "> and creation_time = #{creationTime}</if>
+             <if test="birthday != null "> and birthday = #{birthday}</if>
+         </where>
+    </select>
+    
+    <!-- <select id="selectAppLinkmanListReClient" parameterType="AppLinkman" resultMap="AppLinkmanResult">
        	SELECT app_linkman.*, app_client.*
 		FROM
 		app_client
@@ -71,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="fax != null  and fax != '' "> and fax = #{fax}</if>
              <if test="email != null  and email != '' "> and email = #{email}</if>
              <if test="wechat != null  and wechat != '' "> and wechat = #{wechat}</if>
-             <if test="qQ != null  and qQ != '' "> and QQ = #{qQ}</if>
+             <if test="QQ != null  and QQ != '' "> and QQ = #{QQ}</if>
              <if test="aliwangwang != null  and aliwangwang != '' "> and aliwangwang = #{aliwangwang}</if>
              <if test="postcode != null  and postcode != '' "> and postcode = #{postcode}</if>
              <if test="address != null  and address != '' "> and address = #{address}</if>
@@ -79,20 +107,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="creationTime != null "> and creation_time = #{creationTime}</if>
              <if test="birthday != null "> and birthday = #{birthday}</if>
          </where>
-    </select>
+    </select> -->
     
     <select id="selectAppLinkmanById" parameterType="Integer" resultMap="AppLinkmanResult">
+        <include refid="selectAppLinkmanVo"/>
+        where linkman_id = #{linkmanId}
+    </select>
+    
+    <!-- <select id="selectAppLinkmanByIdReClient" parameterType="Integer" resultMap="AppLinkmanResult">
        	SELECT app_linkman.*, app_client.*
 		FROM
 		app_client
 		INNER JOIN app_linkman ON app_linkman.client_id = app_client.client_id
         where linkman_id = #{linkmanId}
-    </select>
+    </select> -->
+        
         
     <insert id="insertAppLinkman" parameterType="AppLinkman" useGeneratedKeys="true" keyProperty="linkmanId">
         insert into app_linkman
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="clientId != null  ">client_id,</if>
+			<if test="clientName != null  and clientName != ''  ">client_name,</if>
 			<if test="name != null  and name != ''  ">name,</if>
 			<if test="sex != null  and sex != ''  ">sex,</if>
 			<if test="certificateType != null  and certificateType != ''  ">certificate_type,</if>
@@ -106,17 +140,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="fax != null  and fax != ''  ">fax,</if>
 			<if test="email != null  and email != ''  ">email,</if>
 			<if test="wechat != null  and wechat != ''  ">wechat,</if>
-			<if test="qQ != null  and qQ != ''  ">QQ,</if>
+			<if test="QQ != null  and QQ != ''  ">QQ,</if>
 			<if test="aliwangwang != null  and aliwangwang != ''  ">aliwangwang,</if>
 			<if test="postcode !=       null  and postcode != ''  ">postcode,</if>
 			<if test="address != null  and address != ''  ">address,</if>
-			<if test="remark != null  and remark != ''  ">remark,</if>
-			
-			<if test="birthday != null  ">birthday,</if>
-			creation_time
+			<if test="remark != null  and remark != ''  ">remark,</if>	
+			<if test="creationTime != null  ">creation_time,</if>	
+			<if test="birthday != null  ">birthday,</if>				
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="clientId != null  ">#{clientId},</if>
+       		<if test="clientName != null  and clientName != ''  ">#{clientName},</if>
 			<if test="name != null  and name != ''  ">#{name},</if>
 			<if test="sex != null  and sex != ''  ">#{sex},</if>
 			<if test="certificateType != null  and certificateType != ''  ">#{certificateType},</if>
@@ -130,21 +163,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="fax != null  and fax != ''  ">#{fax},</if>
 			<if test="email != null  and email != ''  ">#{email},</if>
 			<if test="wechat != null  and wechat != ''  ">#{wechat},</if>
-			<if test="qQ != null  and qQ != ''  ">#{qQ},</if>
+			<if test="QQ != null  and QQ != ''  ">#{QQ},</if>
 			<if test="aliwangwang != null  and aliwangwang != ''  ">#{aliwangwang},</if>
 			<if test="postcode != null  and postcode != ''  ">#{postcode},</if>
 			<if test="address != null  and address != ''  ">#{address},</if>
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
-			
+			<if test="creationTime != null  ">#{creationTime},</if>			
 			<if test="birthday != null  ">#{birthday},</if>
-			now()
          </trim>
     </insert>
+	 
+	 
 	 
     <update id="updateAppLinkman" parameterType="AppLinkman">
         update app_linkman
         <trim prefix="SET" suffixOverrides=",">
-            <if test="clientId != null  ">client_id = #{clientId},</if>
+            <if test="clientName != null  and clientName != ''  ">client_name = #{clientName},</if>
             <if test="name != null  and name != ''  ">name = #{name},</if>
             <if test="sex != null  and sex != ''  ">sex = #{sex},</if>
             <if test="certificateType != null  and certificateType != ''  ">certificate_type = #{certificateType},</if>
@@ -158,7 +192,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fax != null  and fax != ''  ">fax = #{fax},</if>
             <if test="email != null  and email != ''  ">email = #{email},</if>
             <if test="wechat != null  and wechat != ''  ">wechat = #{wechat},</if>
-            <if test="qQ != null  and qQ != ''  ">QQ = #{qQ},</if>
+            <if test="QQ != null  and QQ != ''  ">QQ = #{QQ},</if>
             <if test="aliwangwang != null  and aliwangwang != ''  ">aliwangwang = #{aliwangwang},</if>
             <if test="postcode != null  and postcode != ''  ">postcode = #{postcode},</if>
             <if test="address != null  and address != ''  ">address = #{address},</if>

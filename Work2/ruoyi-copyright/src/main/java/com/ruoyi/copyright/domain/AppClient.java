@@ -19,10 +19,7 @@ public class AppClient extends BaseEntity
 	/** 客户类型【1：公司 2：个人】 */
 	private String type;
 	/** 公司名称 */
-	private String companyName;
-	/** 姓名 */
-	private String name;
-	
+	private String clientName;	
 	/** 省份 */
 	private String province;
 	/** 城市 */
@@ -39,6 +36,17 @@ public class AppClient extends BaseEntity
 	private String wordPhone;
 	/** 编号 */
 	private String code;
+	/** 备注 */
+	private String remarks;
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
 
 	public void setClientId(Integer clientId) 
 	{
@@ -58,24 +66,7 @@ public class AppClient extends BaseEntity
 	{
 		return type;
 	}
-	public void setCompanyName(String companyName) 
-	{
-		this.companyName = companyName;
-	}
 
-	public String getCompanyName() 
-	{
-		return companyName;
-	}
-	public void setName(String name) 
-	{
-		this.name = name;
-	}
-
-	public String getName() 
-	{
-		return name;
-	}
 	public void setRegion(String region) 
 	{
 		this.region = region;
@@ -148,13 +139,18 @@ public class AppClient extends BaseEntity
 	{
 		return code;
 	}
+	public String getRemarks() {
+		return remarks;
+	}
 
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("clientId", getClientId())
             .append("type", getType())
-            .append("companyName", getCompanyName())
-            .append("name", getName())
+            .append("clientName", getClientName())
             .append("region", getRegion())
             .append("province", getProvince())
             .append("city", getCity())
@@ -162,8 +158,8 @@ public class AppClient extends BaseEntity
             .append("clientKind", getClientKind())
             .append("phone", getPhone())
             .append("wordPhone", getWordPhone())
-            .append("remark", getRemark())
             .append("code", getCode())
+            .append("remarks", getRemarks())
             .toString();
     }
 }

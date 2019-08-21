@@ -1,6 +1,8 @@
 package com.ruoyi.copyright.service;
 
 import com.ruoyi.copyright.domain.AppClient;
+import com.ruoyi.copyright.domain.AppDetailed;
+
 import java.util.List;
 
 /**
@@ -32,7 +34,13 @@ public interface IAppClientService
      * @return 客户集合
      */
 	public List<AppClient> selectAppClientList(AppClient appClient);
-	
+	/**
+	 * 模糊查询客户名字
+	 * 
+	 * @param companyName 客户名字
+	 * @return 客户集合
+	 */
+	public List<AppClient> selectByLike(String search);
 	/**
      * 新增客户
      * 

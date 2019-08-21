@@ -27,8 +27,8 @@ public class AppIndent extends BaseEntity
 	/** 订单编号 */
 	private String code;
 	
-	/** 关联客户id */
-	private Integer clientId;
+	/** 客户 */
+	private String clientName;
 	/** 订购日期 */
 	private Date purchaseDate;
 	/** 订单金额 */
@@ -81,14 +81,14 @@ public class AppIndent extends BaseEntity
 	{
 		return code;
 	}
-	public void setClientId(Integer clientId) 
+	public void setclientName(String clientName) 
 	{
-		this.clientId = clientId;
+		this.clientName = clientName;
 	}
 
-	public Integer getClientId() 
+	public String getclientName() 
 	{
-		return clientId;
+		return clientName;
 	}
 	public void setPurchaseDate(Date purchaseDate) 
 	{
@@ -200,7 +200,7 @@ public class AppIndent extends BaseEntity
             .append("indentId", getIndentId())
             .append("product", getProduct())
             .append("code", getCode())
-            .append("clientId", getClientId())
+            .append("clientName", getclientName())
             .append("purchaseDate", getPurchaseDate())
             .append("orderAmount", getOrderAmount())
             .append("discount", getDiscount())

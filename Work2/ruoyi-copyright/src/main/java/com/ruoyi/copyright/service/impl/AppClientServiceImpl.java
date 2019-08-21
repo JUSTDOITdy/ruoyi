@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.copyright.mapper.AppClientMapper;
 import com.ruoyi.copyright.mapper.AppLinkmanMapper;
 import com.ruoyi.copyright.domain.AppClient;
+import com.ruoyi.copyright.domain.AppDetailed;
 import com.ruoyi.copyright.domain.AppLinkman;
 import com.ruoyi.copyright.service.IAppClientService;
 import com.ruoyi.common.core.text.Convert;
@@ -98,5 +99,11 @@ public class AppClientServiceImpl implements IAppClientService
 	{
 		return appClientMapper.deleteAppClientByIds(Convert.toStrArray(ids));
 	}
+	@Override
+	public List<AppClient> selectByLike(String search) {
+		// TODO Auto-generated method stub
+		 return appClientMapper.selectByLike(search);
+	}
+	
 	
 }

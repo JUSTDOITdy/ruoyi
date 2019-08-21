@@ -6,18 +6,11 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-appLinkman-edit" th:object="${appLinkman}">
-            <input id="linkmanId" name="linkmanId" th:field="*{linkmanId}"  type="hidden">
+            <input id="linkmanId" name="linkmanId" th:field="*{linkmanId}" type="hidden">
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">客户编号：</label>
+				<label class="col-sm-3 control-label">公司名称：</label>
 				<div class="col-sm-8">
-					<input id="clientCode" class="form-control"  th:field="*{client.code}" onchange="compare()">
-				</div>
-			</div>
-			<input id="clientId" name="clientId" class="form-control" th:field="*{client.clientId}"  type="hidden">
-			<div class="form-group hide clientname">	
-				<label class="col-sm-3 control-label">客户名：</label>
-				<div class="col-sm-8">
-					<input id="clientname"  class="form-control" th:field="*{client.companyName}" type="text">
+					<input id="clientName" th:field="*{clientName}" name="clientName" class="form-control"  type="text" autocomplete="off">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -105,7 +98,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">QQ：</label>
 				<div class="col-sm-8">
-					<input id="qQ" name="qQ" th:field="*{qQ}" class="form-control" type="text">
+					<input id="QQ" name="QQ" th:field="*{QQ}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -132,15 +125,51 @@
 					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
 				</div>
 			</div>
+			
+		<!-- 	<div class="form-group">
+				<label class="col-sm-3 control-label">假期时间：</label>
+				<div class="col-sm-3">
+					<input type="text" class="time-input" id="startTime"
+						placeholder="开始时间" name="holidayDate" th:value="*{startDate}"
+						data-format="yyyy-MM-dd" /> <span>-</span> <input type="text"
+						class="time-input" id="endTime" placeholder="结束时间"
+						name="holidayDate" th:value="*{endDate}" data-format="yyyy-MM-dd" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">倒班时间：</label>
+				<div class="col-sm-3 ">
+					<input name="classDate" th:each="classDate,userStat:*{class2Dare}"
+						th:value="${classDate}" id="classDate"
+						class="time-input" placeholder="选择日期" type="text"
+						data-format="yyyy-MM-dd"> 
+						<font class="btn btn-danger" id="addclass">添加倒班日期</font>
+				</div>
+			</div> -->		
+			<!-- 
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">生日：</label>
 				<div class="col-sm-8">
-					<input id="birthday" name="birthday" th:value="${#dates.format(appLinkman.birthday, 'yyyy-MM-dd')}" class="time-input form-control" type="text">
+					<input id="birthday" name="birthday" th:value="${#dates.format(birthday, 'yyyy-MM-dd')}" class="time-input form-control" type="text">
+				</div>
+			</div> -->
+			
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">生日：</label>
+				<div class="col-sm-8">
+					<input id="birthday" name="birthday" th:value="*{birthday}" class="time-input form-control" type="text" data-format="yyyy-MM-dd">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建时间：</label>
+				<div class="col-sm-8">
+					<input id="creationTime" name="creationTime" th:value="*{creationTime}" class="time-input form-control" type="text" data-format="yyyy-MM-dd">
 				</div>
 			</div>
 		</form>
     </div>
     <div th:include="include::footer"></div>
+      <th:block th:include="include :: bootstrap-suggest-js" />
     <script type="text/javascript">
 		var prefix = ctx + "copyright/appLinkman";
 		$("#form-appLinkman-edit").validate({
@@ -158,7 +187,21 @@
 	        }
 	    }
 		
-		
+	
+		 var testBsSuggest = $("#clientName").bsSuggest({
+			    url: ctx + "copyright/appClient/company",        
+		        showBtn: false,
+		        idField: "clientName",
+		        keyField: "clientName"
+		    }).on('onDataRequestSuccess', function (e, result) {
+		        console.log('onDataRequestSuccess: ', result);
+		    }).on('onSetSelectValue', function (e, keyword) {
+		        console.log('onSetSelectValue: ', keyword);
+		    }).on('onUnsetSelectValue', function (e) {
+		        console.log("onUnsetSelectValue");
+		    });
+	
+	/* 	
 		function compare(){
 			var clientCode=$("#clientCode").val();
 			 $.ajax({
@@ -181,15 +224,9 @@
                 	 if(data==""){
                 		 alert("没有改客户，请核对用户编号");
                 	 }
-                 }
-			 
-			
-			 
-             });
-			
-			
-			
-		}
+                 }		 
+             }); */
+	
 		
 	</script>
 </body>

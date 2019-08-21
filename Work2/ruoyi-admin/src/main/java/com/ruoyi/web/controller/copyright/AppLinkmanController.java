@@ -1,6 +1,10 @@
 package com.ruoyi.web.controller.copyright;
 
+import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.text.StyledEditorKit.ItalicAction;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,6 +55,7 @@ public class AppLinkmanController extends BaseController
 	{
 		startPage();
         List<AppLinkman> list = appLinkmanService.selectAppLinkmanList(appLinkman);
+        
 		return getDataTable(list);
 	}
 	
@@ -96,6 +101,7 @@ public class AppLinkmanController extends BaseController
 	public String detail(@PathVariable("linkmanId") Integer linkmanId, ModelMap mmap)
 	{
 		AppLinkman appLinkman = appLinkmanService.selectAppLinkmanById(linkmanId);
+		System.err.println("详情detail"+appLinkman);
 		mmap.put("appLinkman", appLinkman);
 		return prefix + "/detail";
 	}
@@ -106,6 +112,7 @@ public class AppLinkmanController extends BaseController
 	public String edit(@PathVariable("linkmanId") Integer linkmanId, ModelMap mmap)
 	{
 		AppLinkman appLinkman = appLinkmanService.selectAppLinkmanById(linkmanId);
+		System.err.println("编辑edit"+appLinkman);
 		mmap.put("appLinkman", appLinkman);
 	    return prefix + "/edit";
 	}

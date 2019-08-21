@@ -87,10 +87,9 @@ public class AppIndentController extends BaseController
 	    return prefix + "/add";*/
 		
 		List<AppProduct> appProducts   =	appProductService.selectAppProductList(new AppProduct());
-		
 		List<String> list=new ArrayList<>();
 		for (AppProduct appProduct : appProducts) {
-			list.add(appProduct.getType()+":"+appProduct.getWorkdays());
+			list.add(appProduct.getType()+":"+appProduct.getWorkdays()+";  价格："+appProduct.getSalesPrice()) ;
 		}
 		map.put("pro",list );
 		System.out.println(appProducts);

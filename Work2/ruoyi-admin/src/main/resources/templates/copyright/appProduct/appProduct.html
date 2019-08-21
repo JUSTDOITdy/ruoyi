@@ -24,12 +24,7 @@
 
 							<li>联系人姓名：<input type="text" name="supplierName" />
 							</li>
-							<li>发票： <select name="invoice">
-									<option value=""></option>
-									<option value="0">无</option>
-									<option value="1">有</option>
-							</select>
-							</li>
+							
 							<li><a class="btn btn-primary btn-rounded btn-sm"
 								onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
 								<a class="btn btn-warning btn-rounded btn-sm"
@@ -129,46 +124,23 @@
 					title : '申报奖励'
 					
 				},
-				{
-					field : 'invoice', 
-					title : '发票',
-					  formatter: function(value, row, index) {
-						  var invoice;
-						  if(row.invoice==0){
-							  invoice="无";
-						  }else{
-							  invoice="有";
-						  }
-						  return invoice;
-					  }
-				},
+				
 				{
 					field : 'remark', 
 					title : '备注'
 				},
-				{
-					field : 'valid', 
-					title : '效果',
-					  formatter: function(value, row, index) {
-						  var invoice;
-						  if(row.valid==0){
-							  invoice="无效";
-						  }else{
-							  invoice="有效";
-						  }
-						  return invoice;
-					  }
-				},
+			
 				{
 					field : 'rank', 
 					title : '顺序',
-					sortable: true
+					sortable: true,
+					visible: false
 				},
 				{
 		        	field : 'orderadad', 
 					title : '测试',
-					sortable: true
-		        	
+					sortable: true,
+					visible: false
 		        },
 		        {
 		            title: '操作',

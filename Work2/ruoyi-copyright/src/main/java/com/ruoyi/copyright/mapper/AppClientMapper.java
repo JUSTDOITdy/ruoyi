@@ -1,6 +1,8 @@
 package com.ruoyi.copyright.mapper;
 
 import com.ruoyi.copyright.domain.AppClient;
+import com.ruoyi.copyright.domain.AppDetailed;
+
 import java.util.List;	
 
 /**
@@ -33,7 +35,7 @@ public interface AppClientMapper
      * @return 客户集合
      */
 	public List<AppClient> selectAppClientList(AppClient appClient);
-	
+	public List<AppClient> selectByLike(String search);
 	/**
      * 新增客户
      * 

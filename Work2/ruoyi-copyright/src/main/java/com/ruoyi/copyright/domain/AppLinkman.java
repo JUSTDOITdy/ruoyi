@@ -3,7 +3,7 @@ package com.ruoyi.copyright.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.domain.BaseEntity;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 联系人表 app_linkman
@@ -18,7 +18,7 @@ public class AppLinkman extends BaseEntity
 	/** 联系人id */
 	private Integer linkmanId;
 	/** 关联客户id */
-	private Integer clientId;
+	private String clientName;
 	/** 姓名 */
 	private String name;
 	/** 性别 */
@@ -46,7 +46,7 @@ public class AppLinkman extends BaseEntity
 	/** 微信号 */
 	private String wechat;
 	/** QQ */
-	private String qQ;
+	private String QQ;
 	/** 旺旺号 */
 	private String aliwangwang;
 	/** 邮编 */
@@ -57,27 +57,7 @@ public class AppLinkman extends BaseEntity
 	private Date creationTime;
 	/** 生日 */
 	private Date birthday;
-	/**客户表*/
-	private AppClient client;
-	
-	
-	
 
-	public String getqQ() {
-		return qQ;
-	}
-
-	public void setqQ(String qQ) {
-		this.qQ = qQ;
-	}
-
-	public AppClient getClient() {
-		return client;
-	}
-
-	public void setClient(AppClient client) {
-		this.client = client;
-	}
 
 	public void setLinkmanId(Integer linkmanId) 
 	{
@@ -88,14 +68,14 @@ public class AppLinkman extends BaseEntity
 	{
 		return linkmanId;
 	}
-	public void setClientId(Integer clientId) 
+	public void setClientName(String clientName) 
 	{
-		this.clientId = clientId;
+		this.clientName = clientName;
 	}
 
-	public Integer getClientId() 
+	public String getClientName() 
 	{
-		return clientId;
+		return clientName;
 	}
 	public void setName(String name) 
 	{
@@ -214,14 +194,15 @@ public class AppLinkman extends BaseEntity
 	{
 		return wechat;
 	}
-	public void setQQ(String qQ) 
+	
+	public void setQQ(String QQ) 
 	{
-		this.qQ = qQ;
+		this.QQ = QQ;
 	}
 
 	public String getQQ() 
 	{
-		return qQ;
+		return QQ;
 	}
 	public void setAliwangwang(String aliwangwang) 
 	{
@@ -272,7 +253,7 @@ public class AppLinkman extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("linkmanId", getLinkmanId())
-            .append("clientId", getClientId())
+            .append("clientName", getClientName())
             .append("name", getName())
             .append("sex", getSex())
             .append("certificateType", getCertificateType())
@@ -286,7 +267,7 @@ public class AppLinkman extends BaseEntity
             .append("fax", getFax())
             .append("email", getEmail())
             .append("wechat", getWechat())
-            .append("qQ", getQQ())
+            .append("QQ", getQQ())
             .append("aliwangwang", getAliwangwang())
             .append("postcode", getPostcode())
             .append("address", getAddress())

@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<th:block th:include="include :: header('修改订单')" />
-	<th:block th:include="include :: select2-css" />
+<!-- 	<th:block th:include="include :: select2-css" /> -->
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -24,30 +24,12 @@
                     </select>
 				</div>
 			</div> -->
+		
 			
-			
-			<!-- <div class="form-group">	
-				<label class="col-sm-3 control-label">订单类型：</label>
-				<div class="col-sm-8">
-					<input id="indentId" name="indentId" th:field="*{indentId}" class="form-control" type="text">
-				</div>
-			</div> -->
-			
-			<!-- <div class="form-group">
-			<label class="col-sm-3 control-label">订单类型：</label>
-				<div class="col-sm-8">
-					<select name="indentType" class="form-control m-b" 
-					th:with="type=${@dict.getType('app_indent_type')}">
-	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" 
-	                    th:value="${dict.dictValue}" 
-	                    th:selected="${dict.dictValue==indentType}"></option>
-	                </select>
-				</div>
-			</div> -->
 			<div class="form-group">
 			   <label class="col-sm-3 control-label">订单类型：</label>
 				<div class="col-sm-8">
-					<select name="indentType" class="form-control m-b" th:with="type=${@dict.getType('app_indent_type')}">
+					<select name="indentType" class="form-control m-b" th:with="type=${@dict.getType('app_indent_type')}" th:field="*{indentType}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
 	                </select>
 				</div>
@@ -61,15 +43,15 @@
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">关联客户表：</label>
+				<label class="col-sm-3 control-label">客户：</label>
 				<div class="col-sm-8">
-					<input id="clientId" name="clientId" th:field="*{clientId}" class="form-control" type="text">
+					<input id="clientName" name="clientName" th:field="*{clientName}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">订购日期：</label>
 				<div class="col-sm-8">
-					<input id="purchaseDate" name="purchaseDate" th:field="*{purchaseDate}" class="time-input" type="text">
+					<input id="purchaseDate" name="purchaseDate" th:field="*{purchaseDate}" class="time-input form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -91,49 +73,51 @@
 					<input id="materials" name="materials" th:field="*{materials}" class="form-control" type="text">
 				</div>
 			</div> -->
-			
-				<div class="form-group">	<!-- 单选框 -->
+			 <!-- <div class="form-group">
 				<label class="col-sm-3 control-label">有无材料：</label>
 				<div class="col-sm-8">
-					<!-- <input id="materials" name="materials" class="form-control" type="text"> -->
+					<div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
+						<input type="radio" th:id="${dict.dictCode}" name="materials" th:value="${dict.dictValue}" th:field="*{materials}">
+						<label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
+					</div>
+				</div> 
+				</div> -->
+		 <input id="materialsa" name="materialsa" th:field="*{materials}" disabled="disabled" type="text" style="display:none"> 
+	 	<div class="form-group">	
+				<label class="col-sm-3 control-label">有无材料：</label>
+				<div class="col-sm-8">
 					<label class="radio-box"> 
-					<input type="radio" checked
-						value="0" id="optionsRadios2" name="materials"> <ins
-							class="iCheck-helper"
-							style="position: absolute; display: block; width: 100%; height: 100%;  background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+					<input type="radio"  value="0"  name="materials"> 
+					<ins class="iCheck-helper"	></ins>
 						无材料
 					</label>
 					<label class="radio-box">
-					 <input type="radio" 
-						value="1" id="optionsRadios1" name="materials"> <ins
-							class="iCheck-helper"
-							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+					 <input type="radio"   value="1" name="materials"> 
+						<ins class="iCheck-helper"></ins>
 						有材料
-					</label> 
-					
+					</label> 			
 				</div>
-			</div>
-			
+		</div>  
+		
+		 <input id="invoicea" name="invoicea" th:field="*{invoice}" disabled="disabled"  type="text" style="display:none">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">发票：</label>
 				<div class="col-sm-9">
 				   <label class="radio-box"> 
-					<input type="radio" checked
-						value="0" id="optionsRadios2" name="invoice"> <ins
-							class="iCheck-helper"
-							style="position: absolute; display: block; width: 100%; height: 100%;  background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+					<input type="radio"  
+						value="0"  name="invoice"> 
+						<ins class="iCheck-helper"></ins>
 						无需
 					</label>
 					<label class="radio-box">
 					 <input type="radio" 
-						value="1" id="optionsRadios1" name="invoice"> <ins
-							class="iCheck-helper"
-							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+						value="1"  name="invoice"> 
+						<ins class="iCheck-helper"></ins>
 						普票
 					</label> 
 				    <label class="radio-box">
 					 <input type="radio" 
-						value="2" id="optionsRadios3" name="invoice"> <ins
+						value="2"  name="invoice"> <ins
 							class="iCheck-helper"
 							style="position: absolute;  display: block; width: 100%; height: 100%; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
 						专票
@@ -149,13 +133,7 @@
 					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
 				</div>
 			</div>
-			<!-- <div class="form-group">	
-				<label class="col-sm-3 control-label">订单状态：</label>
-				<div class="col-sm-8">
-					<input id="orderStatus" name="orderStatus" th:field="*{orderStatus}" class="form-control" type="text">
-				</div>
-			</div>
-			 -->
+			
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">订单状态：</label>
 				<div class="col-sm-8">
@@ -165,59 +143,53 @@
        			 </div> 
 				
 			</div>
-			<!-- <div class="form-group">	
-				<label class="col-sm-3 control-label">发货时间：</label>
-				<div class="col-sm-8">
-					<input id="deliveryTime" name="deliveryTime" th:field="*{deliveryTime}" class="time-input" type="text">
-				</div>
-			</div> -->
-			<!-- <div class="form-group">	
-				<label class="col-sm-3 control-label">快递单号：</label>
-				<div class="col-sm-8">
-					<input id="trackingNumber" name="trackingNumber" th:field="*{trackingNumber}" class="form-control" type="text">
-				</div>
-			</div> -->
+		
+		
 			<!-- <div class="form-group">	
 				<label class="col-sm-3 control-label">服务情况：</label>
 				<div class="col-sm-8">
 					<input id="serviceCondition" name="serviceCondition" th:field="*{serviceCondition}" class="form-control" type="text">
 				</div>
 			</div> -->
-			<div class="form-group">	
+			<!-- <div class="form-group">	
 				<label class="col-sm-3 control-label">创建人：</label>
 				<div class="col-sm-8">
 					<input id="creator" name="creator" th:field="*{creator}" class="form-control" type="text">
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">创建时间：</label>
 				<div class="col-sm-8">
-					<input id="creationTime" name="creationTime" th:field="*{creationTime}" class="time-input" type="text" >
+					<input id="creationTime" name="creationTime" th:field="*{creationTime}" class="time-input form-control" type="text" >
 				</div>
 			</div>		
 		</form>
 		
+	
+		
+		
 		<h4 class="form-header h4">产品清单：</h4>
 		<div id="detdiv">
-		<form id="form-appDetailed-add" class="detailForm form-inline">
-		
-		<div class="form-group"><a id = "delspan"  class="get btn btn-danger btn-xs">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="form-group">产品：</label>		
-		<input id="product" name="product" type="text"  /></div> 
+		<form id="form-appDetailed-add" class="detailForm form-inline">	
+		       <div class="form-group">
+					<a id = "delspan" class="get btn btn-danger btn-xs">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+					<label class="control-label">产品：</label>
+					<input id="product" name="product" type="text" />
+	   		   </div> 
 		<!-- <select id="detailselect" name="product"  style="width:100px">
 	           <option th:each="product :${pro}" th:value="${product}" th:text="${product}"  >          
-	           </option>
+	           </option>          
 	    </select>	 -->  
-	      <div class="form-group"> <label class="control-label">软件(作品)名字：</label><input id="worksName" name="worksName" type="text" class="form-control" /></div>
+	    <div class="form-group"><label class="control-label">软件(作品)名字：</label><input id="worksName" name="worksName" type="text" class="form-control" /></div>
 	    <div class="form-group"><label class="control-label">价格：</label><input id="price" name="price" type="number" class="form-control"  /></div>
-	    <!-- <div class="form-group"><label class="control-label">数量：</label><input id="amount" name="amount" type="number" class="form-control"   /></div> -->
-	    <!-- <label>发货时间：</label><input id="deliveryTime" name="deliveryTime" type="text" class="time-input"  style="width:100px" /> -->
 	    <div class="form-group"><label class="control-label">是否代写：</label><input id="ghostWrite" name="ghostWrite" type="text" class="form-control" /></div>
-	    <div class="form-group"><label class="control-label">递交日期：</label><input id="submitTime" name="submitTime" type="text" class="form-control" /></div>  
-        <div class="form-group"><label class="control-label">发货日期：</label><input id="deliveryTime" name="deliveryTime" type="text" class="form-control" /></div>  
+	    <div class="form-group"><label class="control-label">递交日期：</label><input id="submitTime" name="submitTime" type="text" class="time-input form-control"/></div>  
+        <div class="form-group"><label class="control-label">发货日期：</label><input id="deliveryTime" name="deliveryTime" type="text" class="time-input form-control"/></div>  
 	    <div class="form-group"> <label class="control-label">流水号：</label><input id="serialsNumber" name="serialsNumber" type="text" class="form-control" /></div>
 	    <div class="form-group"><label class="control-label">快递单号：</label><input id="trackingNumber" name="trackingNumber" type="text" class="form-control" /></div>        
 	    <input id="detailedId" name="detailedId" type="text"  style="display:none">	     
 		</form>
+		<hr>
 		</div>
     </div>
     
@@ -233,7 +205,7 @@
 			},
 			focusCleanup: true
 		});
-		
+
 		function submitHandler() {
 	        if ($.validate.form()) {
 	            $.operate.save(prefix + "/edit", $('#form-appIndent-edit').serialize());
@@ -249,14 +221,14 @@
 		$('#detdiv').on("click",".get",function(){		 //清单的删除按钮 	
 			 if($(".detailForm").length <= 1){		 
 			 }else{ 	
-				 alert("是否删除？");
-				 $(this).parent().remove();
-				 alert($(this).find("#detailedId").val());
-				 alert($(this).parent().find("#detailedId").val());
+			
+				 $(this).parent().parent().next().remove();
+				 $(this).parent().parent().remove();
+			
 			 }			 
 		 })
 		
-		$(function(){
+		$(function(){		
 			var cod = ''+$('#code').val();
 			var cid = 1;
 			$.get(prefixd+"/select/"+cod,function(data){  //根据code查询清单，返回的data是个数组对象
@@ -284,7 +256,7 @@
 					     var $cloneForm = $($('.detailForm')[0]).clone();	
 		 				 $cloneForm.attr('id','#form-appDetailed-add'+cid);
 		 				 cid++;	
-		 				$('#detdiv').append($cloneForm);
+		 				$('#detdiv').append($cloneForm).append("<hr>");
 		 				$cloneForm.find("#detailedId").val(detailedId);
 		 				$cloneForm.find("#product").val(product);
 		 				$cloneForm.find("#worksName").val(worksName);
@@ -294,10 +266,19 @@
 		 				$cloneForm.find("#deliveryTime").val(deliveryTime);	
 		 				$cloneForm.find("#serialsNumber").val(serialsNumber);	
 		 				$cloneForm.find("#trackingNumber").val(trackingNumber);		 				
-					   }
+					   }	 
 				 }
 			})
 		});
+		
+		
+		var materialsv = $('#materialsa').val();	   
+		   //$(":radio[name='materials'][value='" + materialsv + "']").prop("checked", true);
+		   $("input[name='materials'][value='"+materialsv+"']").prop("checked", true);
+
+			var invoicev = $('#invoicea').val();
+			$(":radio[name='invoice'][value='" + invoicev + "']").prop("checked", true);	
+			//$("input[name='invoice'][value='"+invoicev+"']").prop("checked", true);
 	</script>
 </body>
 </html>

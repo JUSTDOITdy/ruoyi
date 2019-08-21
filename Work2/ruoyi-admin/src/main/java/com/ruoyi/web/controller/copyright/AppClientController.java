@@ -1,5 +1,7 @@
 package com.ruoyi.web.controller.copyright;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.copyright.domain.AppClient;
+import com.ruoyi.copyright.domain.AppClientDTO;
+import com.ruoyi.copyright.domain.AppDetailed;
 import com.ruoyi.copyright.service.IAppClientService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -51,6 +55,11 @@ public class AppClientController extends BaseController
 	{
 		startPage();
         List<AppClient> list = appClientService.selectAppClientList(appClient);
+       /* Iterator<AppClient> iterator = list.iterator();
+		while(iterator.hasNext()){
+			AppClient i = (AppClient)iterator.next();
+		    System.out.println(i);
+		}*/
 		return getDataTable(list);
 	}
 	/**
@@ -64,6 +73,83 @@ public class AppClientController extends BaseController
 		return appClientService.selectAppClientByCode(code);
 	}
 	
+	
+	/**
+	 * @param search ajax提交上来的输入框的值
+	 * @return  返回装有user对象的list的json字串
+	 */
+	@RequestMapping("/search")
+	@ResponseBody
+	public  AjaxResult search(String search){  //
+		AjaxResult ajax = new AjaxResult();
+		List<AppClient> listAppClient = appClientService.selectByLike(search);
+		List<AppClientDTO> listAppClientDTO = new ArrayList<>();
+		Iterator<AppClient> iterator = listAppClient.iterator();
+		while(iterator.hasNext()){
+			AppClient i = (AppClient)iterator.next();
+			System.out.println("search");
+		    System.out.println(i);
+		}
+		System.err.println(listAppClient);
+		ajax.put("code", 200);
+        ajax.put("value", listAppClientDTO);
+		return ajax;
+	}
+
+	/**bootstrap-suggest这是一个基于bootstrap按钮式下拉菜单组件的搜索建议插件
+	 * @param   bootstrap-suggest 查询客户列表
+	 * @return  返回AjaxResult对象，自己点开AjaxResult查看
+	 */
+	@RequestMapping("/all")
+	@ResponseBody
+	public  AjaxResult all(AppClient appClient){ 
+        AjaxResult ajax = new AjaxResult();
+		List<AppClient> listAppClient = appClientService.selectAppClientList(appClient);
+		List<AppClientDTO> listAppClientDTO = new ArrayList<>();
+		Iterator<AppClient> iterator = listAppClient.iterator();
+		while(iterator.hasNext()){
+			AppClient i = (AppClient)iterator.next();
+			listAppClientDTO.add(new AppClientDTO(i.getType(),i.getClientName(),i.getSite(),i.getClientKind(),i.getPhone()));
+		    System.out.println(i);
+		}
+		ajax.put("code", 200);
+        ajax.put("value", listAppClientDTO);
+        return ajax;
+    }
+	
+	/**
+	 * @param bootstrap-suggest 查询客户是公司的列表
+	 * @return  返回AjaxResult对象，自己点开AjaxResult查看
+	 */
+	@RequestMapping("/company")
+	@ResponseBody
+	public  AjaxResult company(AppClient appClient){ 
+        AjaxResult ajax = new AjaxResult();
+		List<AppClient> listAppClient = appClientService.selectAppClientList(appClient);
+		List<AppClientDTO> listAppClientDTO = new ArrayList<>();
+		Iterator<AppClient> iterator = listAppClient.iterator();
+		while(iterator.hasNext()){
+			AppClient i = (AppClient)iterator.next();
+			System.err.println(i.getType()+"");
+			if("公司".equals(i.getType())){
+				listAppClientDTO.add(new AppClientDTO(i.getType(),i.getClientName(),i.getSite(),i.getClientKind(),i.getPhone()));
+		        System.out.println(i);
+		    }	
+			System.out.println("11111111111111");
+		}
+		ajax.put("code", 200);
+        ajax.put("value", listAppClientDTO);
+        return ajax;
+    }
+	/* public AjaxResult userModel()
+	    {
+	        AjaxResult ajax = new AjaxResult();
+
+	        ajax.put("code", 200);
+	        ajax.put("value", users);
+	        return ajax;
+	    }*/
+
 	
 	/**
 	 * 导出客户列表
