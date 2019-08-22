@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppProductTypeMapper">
+    
+    <resultMap type="AppProductType" id="AppProductTypeResult">
+        <result property="productTypeId"    column="productTypeId"    />
+        <result property="productType"    column="productType"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+	
+	<sql id="selectAppProductTypeVo">
+        select productTypeId, productType, price from app_product_type
+    </sql>
+	
+    <select id="selectAppProductTypeList" parameterType="AppProductType" resultMap="AppProductTypeResult">
+        <include refid="selectAppProductTypeVo"/>
+        <where>  
+            <if test="productTypeId != null "> and productTypeId = #{productTypeId}</if>
+             <if test="productType != null  and productType != '' "> and productType = #{productType}</if>
+             <if test="price != null "> and price = #{price}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppProductTypeById" parameterType="Integer" resultMap="AppProductTypeResult">
+        <include refid="selectAppProductTypeVo"/>
+        where productTypeId = #{productTypeId}
+    </select>
+        
+    <insert id="insertAppProductType" parameterType="AppProductType" useGeneratedKeys="true" keyProperty="productTypeId">
+        insert into app_product_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productType != null  and productType != ''  ">productType,</if>
+			<if test="price != null  ">price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="productType != null  and productType != ''  ">#{productType},</if>
+			<if test="price != null  ">#{price},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppProductType" parameterType="AppProductType">
+        update app_product_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productType != null  and productType != ''  ">productType = #{productType},</if>
+            <if test="price != null  ">price = #{price},</if>
+        </trim>
+        where productTypeId = #{productTypeId}
+    </update>
+
+	<delete id="deleteAppProductTypeById" parameterType="Integer">
+        delete from app_product_type where productTypeId = #{productTypeId}
+    </delete>
+	
+    <delete id="deleteAppProductTypeByIds" parameterType="String">
+        delete from app_product_type where productTypeId in 
+        <foreach item="productTypeId" collection="array" open="(" separator="," close=")">
+            #{productTypeId}
+        </foreach>
+    </delete>
+    
+</mapper>

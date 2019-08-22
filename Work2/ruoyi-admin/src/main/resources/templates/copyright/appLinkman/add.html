@@ -229,7 +229,10 @@
 				    url: ctx + "copyright/appClient/company",        
 			        showBtn: false,
 			        idField: "clientName",
-			        keyField: "clientName"
+			        keyField: "clientName",
+			        effectiveFields:["type","clientName","site","clientKind","phone"],
+			        effectiveFieldsAlias:{type: "客户类型",clientName:"公司(个人)名称",site:"地点",clientKind:"客户种类",phone:"手机号"},
+			        showHeader: true
 			    }).on('onDataRequestSuccess', function (e, result) {
 			        console.log('onDataRequestSuccess: ', result);
 			    }).on('onSetSelectValue', function (e, keyword) {
