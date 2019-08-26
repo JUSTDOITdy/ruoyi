@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.copyright.mapper.AppProjectMapper">
+    
+    <resultMap type="AppProject" id="AppProjectResult">
+        <result property="projectId"    column="project_id"    />
+        <result property="indentCode"    column="indent_code"    />
+        <result property="indentType"    column="indent_type"    />
+        <result property="serialsNumber"    column="serials_number"    />
+        <result property="product"    column="product"    />
+        <result property="applicant"    column="applicant"    />
+        <result property="worksName"    column="works_name"    />
+        <result property="file"    column="file"    />
+        <result property="submitTime"    column="submit_time"    />
+        <result property="expectTime"    column="expect_time"    />
+        <result property="certificateScan"    column="certificate_scan"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+	
+	<sql id="selectAppProjectVo">
+        select project_id, indent_code, indent_type, serials_number, product, applicant, works_name, file, submit_time, expect_time, certificate_scan, state from app_project
+    </sql>
+	
+    <select id="selectAppProjectList" parameterType="AppProject" resultMap="AppProjectResult">
+        <include refid="selectAppProjectVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+             <if test="indentCode != null  and indentCode != '' "> and indent_code = #{indentCode}</if>
+             <if test="indentType != null  and indentType != '' "> and indent_type = #{indentType}</if>
+             <if test="serialsNumber != null  and serialsNumber != '' "> and serials_number = #{serialsNumber}</if>
+             <if test="product != null  and product != '' "> and product = #{product}</if>
+             <if test="applicant != null  and applicant != '' "> and applicant = #{applicant}</if>
+             <if test="worksName != null  and worksName != '' "> and works_name = #{worksName}</if>
+             <if test="file != null  and file != '' "> and file = #{file}</if>
+             <if test="submitTime != null "> and submit_time = #{submitTime}</if>
+             <if test="expectTime != null "> and expect_time = #{expectTime}</if>
+             <if test="certificateScan != null  and certificateScan != '' "> and certificate_scan = #{certificateScan}</if>
+             <if test="state != null  and state != '' "> and state = #{state}</if>
+         </where>
+    </select>
+    
+    <select id="selectAppProjectById" parameterType="Integer" resultMap="AppProjectResult">
+        <include refid="selectAppProjectVo"/>
+        where project_id = #{projectId}
+    </select>
+        
+    <insert id="insertAppProject" parameterType="AppProject" useGeneratedKeys="true" keyProperty="projectId">
+        insert into app_project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="indentCode != null  and indentCode != ''  ">indent_code,</if>
+			<if test="indentType != null  and indentType != ''  ">indent_type,</if>
+			<if test="serialsNumber != null  and serialsNumber != ''  ">serials_number,</if>
+			<if test="product != null  and product != ''  ">product,</if>
+			<if test="applicant != null  and applicant != ''  ">applicant,</if>
+			<if test="worksName != null  and worksName != ''  ">works_name,</if>
+			<if test="file != null  and file != ''  ">file,</if>
+			<if test="submitTime != null  ">submit_time,</if>
+			<if test="expectTime != null  ">expect_time,</if>
+			<if test="certificateScan != null  and certificateScan != ''  ">certificate_scan,</if>
+			<if test="state != null  and state != ''  ">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="indentCode != null  and indentCode != ''  ">#{indentCode},</if>
+			<if test="indentType != null  and indentType != ''  ">#{indentType},</if>
+			<if test="serialsNumber != null  and serialsNumber != ''  ">#{serialsNumber},</if>
+			<if test="product != null  and product != ''  ">#{product},</if>
+			<if test="applicant != null  and applicant != ''  ">#{applicant},</if>
+			<if test="worksName != null  and worksName != ''  ">#{worksName},</if>
+			<if test="file != null  and file != ''  ">#{file},</if>
+			<if test="submitTime != null  ">#{submitTime},</if>
+			<if test="expectTime != null  ">#{expectTime},</if>
+			<if test="certificateScan != null  and certificateScan != ''  ">#{certificateScan},</if>
+			<if test="state != null  and state != ''  ">#{state},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAppProject" parameterType="AppProject">
+        update app_project
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="indentCode != null  and indentCode != ''  ">indent_code = #{indentCode},</if>
+            <if test="indentType != null  and indentType != ''  ">indent_type = #{indentType},</if>
+            <if test="serialsNumber != null  and serialsNumber != ''  ">serials_number = #{serialsNumber},</if>
+            <if test="product != null  and product != ''  ">product = #{product},</if>
+            <if test="applicant != null  and applicant != ''  ">applicant = #{applicant},</if>
+            <if test="worksName != null  and worksName != ''  ">works_name = #{worksName},</if>
+            <if test="file != null  and file != ''  ">file = #{file},</if>
+            <if test="submitTime != null  ">submit_time = #{submitTime},</if>
+            <if test="expectTime != null  ">expect_time = #{expectTime},</if>
+            <if test="certificateScan != null  and certificateScan != ''  ">certificate_scan = #{certificateScan},</if>
+            <if test="state != null  and state != ''  ">state = #{state},</if>
+        </trim>
+        where project_id = #{projectId}
+    </update>
+
+	<delete id="deleteAppProjectById" parameterType="Integer">
+        delete from app_project where project_id = #{projectId}
+    </delete>
+	
+    <delete id="deleteAppProjectByIds" parameterType="String">
+        delete from app_project where project_id in 
+        <foreach item="projectId" collection="array" open="(" separator="," close=")">
+            #{projectId}
+        </foreach>
+    </delete>
+    
+</mapper>

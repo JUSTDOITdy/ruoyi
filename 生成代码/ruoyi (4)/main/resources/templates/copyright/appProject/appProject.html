@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('项目列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								订单编号：<input type="text" name="indentCode"/>
+							</li>
+
+							<li>
+								订单类型：<input type="text" name="indentType"/>
+							</li>
+
+							<li>
+								流水号：<input type="text" name="serialsNumber"/>
+							</li>
+
+							<li>
+								产品：<input type="text" name="product"/>
+							</li>
+
+							<li>
+								申请人：<input type="text" name="applicant"/>
+							</li>
+
+							<li>
+								作品名称：<input type="text" name="worksName"/>
+							</li>
+
+							<li>
+								文档：<input type="text" name="file"/>
+							</li>
+
+							<li>
+								递交日期：<input type="text" name="submitTime"/>
+							</li>
+
+							<li>
+								预计下证日期：<input type="text" name="expectTime"/>
+							</li>
+
+							<li>
+								：<input type="text" name="certificateScan"/>
+							</li>
+
+							<li>
+								状态：<input type="text" name="state"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="copyright:appProject:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="copyright:appProject:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="copyright:appProject:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="copyright:appProject:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('copyright:appProject:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('copyright:appProject:remove')}]];
+        var prefix = ctx + "copyright/appProject";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "项目",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'projectId', 
+					title : '项目id',
+					visible: false
+				},
+				{
+					field : 'indentCode', 
+					title : '订单编号',
+					sortable: true
+				},
+				{
+					field : 'indentType', 
+					title : '订单类型',
+					sortable: true
+				},
+				{
+					field : 'serialsNumber', 
+					title : '流水号',
+					sortable: true
+				},
+				{
+					field : 'product', 
+					title : '产品',
+					sortable: true
+				},
+				{
+					field : 'applicant', 
+					title : '申请人',
+					sortable: true
+				},
+				{
+					field : 'worksName', 
+					title : '作品名称',
+					sortable: true
+				},
+				{
+					field : 'file', 
+					title : '文档',
+					sortable: true
+				},
+				{
+					field : 'submitTime', 
+					title : '递交日期',
+					sortable: true
+				},
+				{
+					field : 'expectTime', 
+					title : '预计下证日期',
+					sortable: true
+				},
+				{
+					field : 'certificateScan', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'state', 
+					title : '状态',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.projectId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.projectId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

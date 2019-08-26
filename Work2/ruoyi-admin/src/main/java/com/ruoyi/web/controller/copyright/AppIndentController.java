@@ -92,7 +92,7 @@ public class AppIndentController extends BaseController
 			list.add(appProduct.getType()+":"+appProduct.getWorkdays()+";  售价："+appProduct.getSalesPrice()) ;
 		}
 		map.put("pro",list );
-		System.out.println(appProducts);
+		//System.out.println(appProducts);
 		
 	    return prefix + "/add";
 	}

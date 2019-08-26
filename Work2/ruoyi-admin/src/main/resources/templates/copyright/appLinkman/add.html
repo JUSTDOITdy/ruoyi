@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<th:block th:include="include :: header('新增联系人')" />
-	<th:block th:include="include :: select2-css" />
+	<!-- <th:block th:include="include :: select2-css" /> -->
 		
 </head>
 <body class="white-bg">
@@ -224,15 +224,14 @@
                  }
              });	
 		} */
-	
+       // effectiveFieldsAlias:{type: "客户类型",clientName:"公司(个人)名称",site:"地点",clientKind:"客户种类",phone:"手机号"},
+      //effectiveFields:["type","clientName","site","clientKind","phone"]
+       //showHeader: true
 			 var testBsSuggest = $("#clientName").bsSuggest({
 				    url: ctx + "copyright/appClient/company",        
 			        showBtn: false,
 			        idField: "clientName",
-			        keyField: "clientName",
-			        effectiveFields:["type","clientName","site","clientKind","phone"],
-			        effectiveFieldsAlias:{type: "客户类型",clientName:"公司(个人)名称",site:"地点",clientKind:"客户种类",phone:"手机号"},
-			        showHeader: true
+			        keyField: "clientName"
 			    }).on('onDataRequestSuccess', function (e, result) {
 			        console.log('onDataRequestSuccess: ', result);
 			    }).on('onSetSelectValue', function (e, keyword) {

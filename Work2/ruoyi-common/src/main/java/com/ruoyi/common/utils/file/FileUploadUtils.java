@@ -110,6 +110,7 @@ public class FileUploadUtils
         assertAllowed(file, allowedExtension);
 
         String fileName = extractFilename(file);
+        //String fileName = file.getOriginalFilename();
 
         File desc = getAbsoluteFile(baseDir, fileName);
         file.transferTo(desc);
@@ -123,7 +124,8 @@ public class FileUploadUtils
     {
         String filename = file.getOriginalFilename();
         String extension = getExtension(file);
-        filename = DateUtils.datePath() + "/" + encodingFilename(filename) + "." + extension;
+        //filename = DateUtils.datePath() + "/" + encodingFilename(filename) + "." + extension;
+        filename = DateUtils.datePath() + "/" + file.getOriginalFilename();
         return filename;
     }
 

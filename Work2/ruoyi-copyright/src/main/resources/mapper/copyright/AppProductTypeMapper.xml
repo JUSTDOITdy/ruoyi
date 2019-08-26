@@ -6,19 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="AppProductType" id="AppProductTypeResult">
         <result property="productTypeId"    column="productTypeId"    />
-        <result property="productType"    column="productType"    />
+        <result property="productType"    column="product_type"    />
         <result property="price"    column="price"    />
     </resultMap>
 	
 	<sql id="selectAppProductTypeVo">
-        select productTypeId, productType, price from app_product_type
+        select productTypeId, product_type, price from app_product_type
     </sql>
 	
     <select id="selectAppProductTypeList" parameterType="AppProductType" resultMap="AppProductTypeResult">
         <include refid="selectAppProductTypeVo"/>
         <where>  
             <if test="productTypeId != null "> and productTypeId = #{productTypeId}</if>
-             <if test="productType != null  and productType != '' "> and productType = #{productType}</if>
+             <if test="productType != null  and productType != '' "> and product_type = #{productType}</if>
              <if test="price != null "> and price = #{price}</if>
          </where>
     </select>
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertAppProductType" parameterType="AppProductType" useGeneratedKeys="true" keyProperty="productTypeId">
         insert into app_product_type
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="productType != null  and productType != ''  ">productType,</if>
+			<if test="productType != null  and productType != ''  ">product_type,</if>
 			<if test="price != null  ">price,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateAppProductType" parameterType="AppProductType">
         update app_product_type
         <trim prefix="SET" suffixOverrides=",">
-            <if test="productType != null  and productType != ''  ">productType = #{productType},</if>
+            <if test="productType != null  and productType != ''  ">product_type = #{productType},</if>
             <if test="price != null  ">price = #{price},</if>
         </trim>
         where productTypeId = #{productTypeId}

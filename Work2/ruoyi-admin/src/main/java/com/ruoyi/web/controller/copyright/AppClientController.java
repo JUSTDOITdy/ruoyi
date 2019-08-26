@@ -113,7 +113,7 @@ public class AppClientController extends BaseController
 		    System.out.println(i);
 		}
 		ajax.put("code", 200);
-        ajax.put("value", listAppClient);
+        ajax.put("value", listAppClientDTO);
         return ajax;
     }
 	
