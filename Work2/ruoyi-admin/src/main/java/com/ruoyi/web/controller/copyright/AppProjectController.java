@@ -134,27 +134,27 @@ public class AppProjectController extends BaseController
 		return toAjax(appProjectService.deleteAppProjectByIds(ids));
 	}
 	
-	/*@PostMapping("/fileupload/{code}")
+	/*@PostMapping("/certificateupload/{projectid}")
 	@ResponseBody
-	public AjaxResult fileupload(@PathVariable("code") Integer code, MultipartFile file)
+	public AjaxResult certificateupload(@PathVariable("projectid") Integer projectid, MultipartFile phone)
 	{
 	   
-	   System.err.println(code);
-	   System.err.println(file.isEmpty());
+	   System.err.println(projectid);
+	   //System.err.println(phone.isEmpty());
 	    try
 	    {
-	        if (!file.isEmpty())
+	        if (!phone.isEmpty())
 	        {        	
-	        	System.err.println("getOriginalFilename:::"+file.getOriginalFilename());
-	        	System.err.println(file.getContentType());
-	        	System.err.println(file.getResource());
-	        	System.err.println(file.getSize());
-	            String uploadpath = FileUploadUtils.upload(Global.getAvatarPath(), file)+",";
+	        	System.err.println("getOriginalFilename:::"+phone.getOriginalFilename());
+	        	System.err.println(phone.getContentType());
+	        	System.err.println(phone.getResource());
+	        	System.err.println(phone.getSize());
+	            String uploadpath = FileUploadUtils.upload(Global.getAvatarPath(), phone)+",";
 	            System.err.println(uploadpath);        
 	            AppProject appproject = new AppProject();
-	            appproject.setCode(code.toString());
+	            appproject.setProjectId(projectid);
 	            appproject.setCertificateScan(uploadpath);
-	            if (appProjectService.updateAppProjectByCode(appproject) > 0)
+	            if (appProjectService.updateAppProjectById(appproject) > 0)
 	            {
 	                return success();
 	            }
@@ -167,12 +167,49 @@ public class AppProjectController extends BaseController
 	        return error(e.getMessage());
 	    }
 	}*/
+	
+	
+	@PostMapping("/certificateload/{projectid}")
+	@ResponseBody
+	public AjaxResult certificateload(@PathVariable("projectid") Integer projectid,MultipartFile file)
+	{
+	   System.err.println("证书扫描件");
+	   System.err.println(projectid);
+	   System.err.println(file.getSize());
+	    try
+	    {
+	        if (!file.isEmpty())
+	        {        	
+	        	System.err.println("getOriginalFilename:::"+file.getOriginalFilename());
+	        	System.err.println(file.getContentType());
+	        	System.err.println(file.getResource());
+	        	System.err.println(file.getSize());
+	        	String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+	        	System.err.println(extension);
+	            String uploadpath = FileUploadUtils.upload(Global.getAvatarPath(), file)+",";
+	            System.err.println(uploadpath);        
+	            AppProject appproject = new AppProject();
+	            appproject.setProjectId(projectid);
+	            appproject.setCertificateScan(uploadpath);
+	            if (appProjectService.updateAppProjectById(appproject) > 0)
+	            {       System.err.println("成功");
+	                return success();
+	            }
+	        }
+	        return error();
+	    }
+	    catch (Exception e)
+	    {
+
+	        return error(e.getMessage());
+	    }
+	}
 
 @PostMapping("/fileupload/{projectid}")
 @ResponseBody
 public AjaxResult fileupload(@PathVariable("projectid") Integer projectid,MultipartFile file)
 {
-   
+   System.err.println("文档");
    System.err.println(projectid);
    System.err.println(file.getSize());
     try
@@ -189,9 +226,9 @@ public AjaxResult fileupload(@PathVariable("projectid") Integer projectid,Multip
             System.err.println(uploadpath);        
             AppProject appproject = new AppProject();
             appproject.setProjectId(projectid);
-            appproject.setCertificateScan(uploadpath);
+            appproject.setFile(uploadpath);
             if (appProjectService.updateAppProjectById(appproject) > 0)
-            {       
+            {     System.err.println("成功");   
                 return success();
             }
         }

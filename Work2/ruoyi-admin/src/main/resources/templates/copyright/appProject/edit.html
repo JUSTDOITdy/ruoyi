@@ -48,9 +48,10 @@
 			<!-- <div class="form-group">	
 				<label class="col-sm-3 control-label">文档：</label>
 				<div class="col-sm-8">
-					<input id="file" name="file" th:field="*{file}" class="form-control" type="text">
+					<input id="file" name="file" th:field="*{file}" class="form-control" type="text">			
 				</div>
 			</div> -->
+			<input id="file" name="file" th:field="*{file}"  type="hidden">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">递交日期：</label>
 				<div class="col-sm-8">
@@ -69,6 +70,7 @@
 					<input id="certificateScan" name="certificateScan" th:field="*{certificateScan}" class="form-control" type="text">
 				</div>
 			</div> -->
+			<input id="certificateScan" name="certificateScan" th:field="*{certificateScan}"  type="hidden">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">状态：</label>
 				<div class="col-sm-8">
@@ -76,11 +78,11 @@
 				</div>
 			</div>
 			
-			
-			<div class="form-group">
+		</form>
+		<div class="form-group">
                     <label class="control-label" style="color:black;font-size:20px;font-weight:bold">证书扫描件：</label>
 	                <div id="certificateScandiv" class="file-loading">
-					     <input  id="file" name="file" type="file" multiple>
+					     <input  id="certificatephone" name="file" type="file" multiple>
 					</div>
              </div>
 			<div class="form-group">
@@ -89,7 +91,6 @@
 					     <input  id="filea" name="file" type="file" multiple>
 					</div>
              </div>
-		</form>
     </div>
     <div th:include="include::footer"></div>
     <!-- <th:block th:include="include :: footer" /> -->
@@ -128,18 +129,42 @@
             'theme': 'explorer-fas',
             'uploadUrl': prefix+'/fileupload/'+$('#projectId').val(),   
             overwriteInitial: false 
+                            "D:\profile\upload\2019\08\26\201407160238224062.jpg"
+                            
+                            [
+                    "/profile/avatar/"+a[0],
+                ]
+		            previewFileType:"text",
         });  */
-        $(document).ready(function () {
-		$('#file').fileinput({
+        $(document).ready(function () {        
+        	var a = ($('#certificateScan').val()+'').split(',');
+        	var b = ($('#file').val()+'').split(',');
+        	var phonearray =new Array();
+        	var filearray =new Array();
+        	for(var i=0;i < a.length-1;i++){
+        		phonearray[i]="/profile/avatar/"+a[i];
+        	}
+        	for(var i=0;i < b.length-1;i++){
+        		filearray[i]="/profile/upload/"+b[i];
+        	} 	
+        	$('#certificatephone').fileinput({
+                'theme': 'certificatephone',
+                'uploadUrl': prefix+'/certificateload/'+$('#projectId').val(),
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                initialPreviewFileType: "image",
+                initialPreview: phonearray
+            });
+        	
+        	$('#filea').fileinput({
             'theme': 'explorer-fas',
             'uploadUrl': prefix+'/fileupload/'+$('#projectId').val(),
             overwriteInitial: false,
             initialPreviewAsData: true,
             initialPreviewFileType: "text",
-            initialPreview: [
-                "/img/profile.jpg"
-            ]
+            initialPreview: filearray
         });
+        
         });
         
 	/* 	window.onload = function () {
@@ -153,7 +178,18 @@
 		            initialPreview: [
 		                "/img/profile.jpg"
 		            ]
-		        });
+		        });  generic: tGeneric,
+                    html: tHtml,
+                    image: tImage,
+                    text: tText,
+                    office: tOffice,
+                    gdocs: tGdocs,
+                    video: tVideo,
+                    audio: tAudio,
+                    flash: tFlash,
+                    object: tObject,
+                    pdf: tPdf,
+                    other: tOther
 		    });  */
 	</script>
 </body>
