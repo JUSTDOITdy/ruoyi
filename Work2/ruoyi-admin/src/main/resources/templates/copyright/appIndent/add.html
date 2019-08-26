@@ -220,7 +220,7 @@
     <script type="text/javascript"> 
 		var prefix  = ctx + "copyright/appIndent"
 		var prefixd = ctx + "copyright/appDetailed"
-		var prefixp = ctx + "copyright/appProject"
+		var prefixp = ctx + "copyright/appProject"  //这是项目的前缀
 		var cid = 1
 		
 	    $("#orderAmountDiv").hide();
@@ -250,17 +250,18 @@
 					var b = $($('.detailForm')[i]).serialize()+'&coded='+cod;
 				    $.operate.savedet(prefixd + "/add", b);
 				    
+				    //这是提交项目的
 				    var stra=new String();
 				    var strb=new String();
 				    var arra=new Array();
 				    var arrb=new Array();
-				    stra= $('#form-appIndent-add').serialize();
-				    strb= $($('.detailForm')[i]).serialize();
+				    stra= $('#form-appIndent-add').serialize(); //订单表单的内容
+				    strb= $($('.detailForm')[i]).serialize();  //产品清单表单的内容
 				    //  alert(stra+strb); 
 				    //可以用字符或字符串分割
 				    arra=stra.split('&');
 				    arrb=strb.split('&');
-				    var c = arra[0]+'&'+arra[2]+'&'+arrb[0];
+				    var c = arra[0]+'&'+arra[2]+'&'+arrb[0];  //把订单和清单的几个字段给项目
 				    // alert(c);
 				    $.operate.savedet(prefixp + "/add", c);
 				 }
